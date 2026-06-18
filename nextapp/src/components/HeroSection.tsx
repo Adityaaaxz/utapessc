@@ -38,15 +38,13 @@ export default function HeroSection() {
           left: 0,
           width: '100%',
           height: '250vh', // Extends down to cover Hero, Ticker, and Product sections
+          backgroundColor: '#ffffff', // Ensures the bleeding part isn't black
           backgroundImage: 'url("/assets/landing-asset/hero-asset/hero-product-background.png")',
-          backgroundSize: '100% auto',
+          backgroundSize: 'cover',
           backgroundPosition: 'top center',
-          backgroundRepeat: 'repeat-y', // In case the screen is very tall
+          backgroundRepeat: 'no-repeat',
           zIndex: 0,
           pointerEvents: 'none',
-          // Fade out the bottom with opacity mask
-          maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         }}
       />
 
