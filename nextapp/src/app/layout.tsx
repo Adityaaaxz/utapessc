@@ -1,33 +1,32 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Bebas_Neue, Inter } from 'next/font/google'
+import './globals.css'
+
+const bebasNeue = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-bebas',
+  display: 'swap',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: "UTAPES — Thrift Best Shoe Store",
-  description: "UTAPES adalah toko sepatu thrift terbaik. Temukan koleksi Nike, Adidas, Vans, Puma, dan Salomon dengan harga terjangkau.",
-  keywords: "sepatu thrift, second hand shoes, nike, adidas, vans, puma, salomon, utapes",
-  openGraph: {
-    title: "UTAPES — Thrift Best Shoe Store",
-    description: "Koleksi sepatu thrift premium terbaik",
-    type: "website",
-  },
-};
+  title: 'UTAPES — Thrift Best Shoe Store',
+  description: 'UTAPES adalah toko sepatu thrift terbaik. Temukan koleksi Nike, Adidas, Vans, Puma, dan Salomon dengan harga terjangkau.',
+  keywords: 'sepatu thrift, second hand shoes, nike, adidas, vans, puma, salomon, utapes',
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&family=Permanent+Marker&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>{children}</body>
+    <html lang="id" className={`${bebasNeue.variable} ${inter.variable}`}>
+      <body style={{ fontFamily: 'var(--font-inter), sans-serif', background: '#000', overflowX: 'hidden' }}>
+        {children}
+      </body>
     </html>
-  );
+  )
 }

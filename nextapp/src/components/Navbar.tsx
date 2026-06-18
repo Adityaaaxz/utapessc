@@ -1,286 +1,177 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, Menu, X } from 'lucide-react';
+import { useState } from 'react'
+import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ShoppingCart, Menu, X } from 'lucide-react'
 
-const NAV_LINKS = [
+const LINKS = [
   { label: 'Home',    href: '#home' },
   { label: 'Product', href: '#product' },
   { label: 'About',   href: '#about' },
   { label: 'Contact', href: '#contact' },
-];
+]
 
 export default function Navbar() {
-  const [scrolled,    setScrolled]    = useState(false);
-  const [menuOpen,    setMenuOpen]    = useState(false);
-  const [activeLink,  setActiveLink]  = useState('Home');
-  const [cartCount]                   = useState(0);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [menuOpen]);
+  const [open, setOpen]     = useState(false)
+  const [active, setActive] = useState('Home')
 
   return (
     <>
       <motion.nav
-        id="navbar"
-        className="glass-nav"
-        style={{
-          position: 'fixed',
-          top: 0, left: 0, right: 0,
-          zIndex: 1000,
-          padding: scrolled ? '12px 0' : '18px 0',
-          transition: 'padding 0.3s ease',
-        }}
         initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+        animate={{ y: 0,   opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
+          background: 'rgba(0,0,0,0.85)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          borderBottom: '1px solid rgba(255,107,0,0.2)',
+        }}
       >
-        <div
-          style={{
-            maxWidth: 1280,
-            margin: '0 auto',
-            padding: '0 24px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
           {/* ── LEFT: Logo ── */}
           <Link href="#home" style={{ textDecoration: 'none' }}>
-            <motion.div
+            <motion.span
+              whileHover={{ scale: 1.04 }}
               style={{
-                fontFamily: 'var(--font-graffiti)',
-                fontSize: 'clamp(24px, 3vw, 32px)',
-                letterSpacing: '0.05em',
-                color: 'var(--white)',
+                fontFamily: 'var(--font-bebas), sans-serif',
+                fontSize: '2rem',
+                letterSpacing: '0.06em',
+                color: '#fff',
                 lineHeight: 1,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
               }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
             >
-              <span style={{ color: 'var(--orange)' }}>U</span>TAPES
-              <span
-                style={{
-                  fontSize: '0.45em',
-                  fontFamily: 'var(--font-body)',
-                  fontWeight: 700,
-                  color: 'var(--orange)',
-                  background: 'rgba(255,107,0,0.12)',
-                  border: '1px solid var(--orange)',
-                  borderRadius: 4,
-                  padding: '2px 6px',
-                  letterSpacing: '0.1em',
-                  alignSelf: 'flex-end',
-                  marginBottom: 4,
-                }}
-              >
-                SC
-              </span>
-            </motion.div>
+              <span style={{ color: '#FF6B00' }}>U</span>TAPES
+            </motion.span>
           </Link>
 
-          {/* ── CENTER: Nav links (desktop) ── */}
-          <ul
-            style={{
-              display: 'flex',
-              listStyle: 'none',
-              gap: 'clamp(16px, 3vw, 40px)',
-              alignItems: 'center',
-            }}
-            className="hidden-mobile"
-          >
-            {NAV_LINKS.map((link) => (
-              <li key={link.label}>
+          {/* ── CENTER: Links (desktop) ── */}
+          <ul className="desktop-nav" style={{ display: 'flex', listStyle: 'none', gap: '36px', margin: 0, padding: 0 }}>
+            {LINKS.map((l) => (
+              <li key={l.label}>
                 <Link
-                  href={link.href}
-                  onClick={() => setActiveLink(link.label)}
+                  href={l.href}
+                  onClick={() => setActive(l.label)}
                   style={{
                     textDecoration: 'none',
-                    fontFamily: 'var(--font-body)',
+                    fontFamily: 'var(--font-inter), sans-serif',
                     fontWeight: 600,
-                    fontSize: '0.9rem',
-                    letterSpacing: '0.05em',
-                    color: activeLink === link.label ? 'var(--orange)' : 'var(--white)',
-                    position: 'relative',
-                    padding: '4px 0',
-                    transition: 'color 0.2s',
+                    fontSize: '0.875rem',
+                    color: active === l.label ? '#FF6B00' : '#fff',
+                    letterSpacing: '0.04em',
+                    padding: '6px 12px',
+                    borderRadius: active === l.label ? '20px' : '0',
+                    background: active === l.label ? 'rgba(255,107,0,0.12)' : 'transparent',
+                    transition: 'all 0.2s',
                   }}
                 >
-                  {link.label}
-                  {activeLink === link.label && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      style={{
-                        position: 'absolute',
-                        bottom: -2,
-                        left: 0,
-                        right: 0,
-                        height: 2,
-                        background: 'var(--orange)',
-                        borderRadius: 1,
-                      }}
-                    />
-                  )}
+                  {l.label}
                 </Link>
               </li>
             ))}
           </ul>
 
           {/* ── RIGHT: Cart + Hamburger ── */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <motion.button
-              id="cart-button"
-              aria-label="Shopping Cart"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.93 }}
+              aria-label="Cart"
               style={{
-                background: 'rgba(255,107,0,0.1)',
-                border: '1px solid rgba(255,107,0,0.3)',
-                borderRadius: 8,
+                background: 'rgba(255,107,0,0.12)',
+                border: '1px solid rgba(255,107,0,0.35)',
+                borderRadius: '8px',
                 padding: '8px 10px',
                 cursor: 'pointer',
-                color: 'var(--white)',
-                position: 'relative',
+                color: '#fff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-              whileHover={{ scale: 1.1, background: 'rgba(255,107,0,0.2)' }}
-              whileTap={{ scale: 0.93 }}
             >
               <ShoppingCart size={20} />
-              {cartCount > 0 && (
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: -6, right: -6,
-                    background: 'var(--orange)',
-                    color: '#fff',
-                    borderRadius: '50%',
-                    width: 18, height: 18,
-                    fontSize: 10,
-                    fontWeight: 700,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {cartCount}
-                </span>
-              )}
             </motion.button>
 
-            {/* Hamburger (mobile) */}
-            <motion.button
-              id="hamburger-button"
-              aria-label="Menu"
-              className="show-mobile"
+            {/* Hamburger */}
+            <button
+              className="mobile-menu-btn"
+              onClick={() => setOpen(true)}
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: 'var(--white)',
+                color: '#fff',
                 cursor: 'pointer',
-                padding: 4,
+                padding: '4px',
                 display: 'none',
+                alignItems: 'center',
               }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setMenuOpen(true)}
+              aria-label="Menu"
             >
               <Menu size={26} />
-            </motion.button>
+            </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* ── Mobile Full-Screen Menu ── */}
+      {/* ── Mobile full-screen menu ── */}
       <AnimatePresence>
-        {menuOpen && (
+        {open && (
           <motion.div
-            className="mobile-menu"
-            initial={{ opacity: 0, clipPath: 'circle(0% at calc(100% - 52px) 36px)' }}
-            animate={{ opacity: 1, clipPath: 'circle(150% at calc(100% - 52px) 36px)' }}
-            exit={{ opacity: 0, clipPath: 'circle(0% at calc(100% - 52px) 36px)' }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              position: 'fixed', inset: 0, zIndex: 9999,
+              background: 'rgba(0,0,0,0.97)',
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center', gap: '40px',
+            }}
           >
-            <motion.button
-              id="close-mobile-menu"
-              aria-label="Close Menu"
+            <button
+              onClick={() => setOpen(false)}
               style={{
-                position: 'absolute',
-                top: 24, right: 24,
+                position: 'absolute', top: '24px', right: '24px',
                 background: 'rgba(255,107,0,0.15)',
                 border: '1px solid rgba(255,107,0,0.3)',
-                borderRadius: 8,
-                color: 'var(--white)',
+                borderRadius: '8px',
+                color: '#fff',
                 padding: '8px 10px',
                 cursor: 'pointer',
               }}
-              onClick={() => setMenuOpen(false)}
-              whileTap={{ scale: 0.9 }}
+              aria-label="Close"
             >
               <X size={22} />
-            </motion.button>
+            </button>
 
-            <div
-              style={{
-                fontFamily: 'var(--font-marker)',
-                fontSize: 40,
-                color: 'rgba(255,107,0,0.08)',
-                position: 'absolute',
-                top: 20, left: 20,
-                transform: 'rotate(-8deg)',
-              }}
-            >
-              UTAPES
-            </div>
-
-            {NAV_LINKS.map((link, i) => (
+            {LINKS.map((l, i) => (
               <motion.div
-                key={link.label}
-                initial={{ opacity: 0, x: -60 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                key={l.label}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08, duration: 0.4 }}
               >
                 <Link
-                  href={link.href}
-                  onClick={() => { setActiveLink(link.label); setMenuOpen(false); }}
+                  href={l.href}
+                  onClick={() => { setActive(l.label); setOpen(false) }}
                   style={{
-                    fontFamily: 'var(--font-graffiti)',
-                    fontSize: 'clamp(48px, 10vw, 72px)',
-                    letterSpacing: '0.04em',
-                    color: activeLink === link.label ? 'var(--orange)' : 'var(--white)',
+                    fontFamily: 'var(--font-bebas), sans-serif',
+                    fontSize: '4rem',
+                    color: active === l.label ? '#FF6B00' : '#fff',
                     textDecoration: 'none',
-                    display: 'block',
-                    textAlign: 'center',
-                    transition: 'color 0.2s',
+                    letterSpacing: '0.06em',
                   }}
                 >
-                  {link.label}
+                  {l.label}
                 </Link>
               </motion.div>
             ))}
           </motion.div>
         )}
       </AnimatePresence>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .hidden-mobile { display: none !important; }
-          .show-mobile   { display: flex !important; }
-        }
-      `}</style>
     </>
-  );
+  )
 }
