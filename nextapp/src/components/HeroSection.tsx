@@ -45,6 +45,9 @@ export default function HeroSection() {
           backgroundRepeat: 'no-repeat',
           zIndex: 0,
           pointerEvents: 'none',
+          // Fade out the bottom with opacity mask
+          maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
         }}
       />
 

@@ -106,7 +106,7 @@ export default function ProductSection() {
       className="graffiti-bg"
       style={{
         position: 'relative',
-        background: 'transparent',
+        background: '#fff',
         padding: 'clamp(60px, 10vw, 100px) 24px',
         overflow: 'hidden',
       }}
