@@ -26,6 +26,7 @@ export default function BrandMarquee() {
         overflow: 'hidden',
         padding: '18px 0',
         position: 'relative',
+        marginTop: '32px',
       }}
     >
       {/* Fade edges */}

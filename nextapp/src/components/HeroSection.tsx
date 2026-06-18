@@ -65,7 +65,7 @@ export default function HeroSection() {
               bottom: '-10%', // Push it up above the logo
               zIndex: 1, // <--- BEHIND LOGO
               marginLeft: '-20px',
-              width: 'clamp(280px, 40vw, 600px)', // Made slightly smaller
+              width: 'clamp(200px, 30vw, 450px)', // Scaled down for 100% zoom
               pointerEvents: 'none'
             }}
           >
@@ -95,7 +95,7 @@ export default function HeroSection() {
                 objectFit: 'contain',
                 width: '100%',
                 height: 'auto',
-                maxWidth: '800px',
+                maxWidth: '600px',
                 filter: 'drop-shadow(8px 8px 0px #FF6B00) drop-shadow(0px 12px 24px rgba(0,0,0,0.15))'
               }}
             />
@@ -146,7 +146,7 @@ export default function HeroSection() {
             <div style={{
               background: '#000',
               color: '#fff',
-              padding: '16px 32px',
+              padding: '12px 24px',
               borderBottom: '4px solid #FF6B00',
               display: 'flex',
               justifyContent: 'center',
@@ -155,22 +155,22 @@ export default function HeroSection() {
               fontFamily: 'var(--font-inter), sans-serif',
               fontWeight: 800,
               letterSpacing: '0.15em',
-              fontSize: '1.2rem',
+              fontSize: '0.9rem',
             }}>
               THRIFT SHOES STORE
             </div>
 
             {/* Logos */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '32px', flexWrap: 'wrap', paddingLeft: '4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap', paddingLeft: '4px' }}>
               {BRAND_LOGOS.map((logo) => (
                 <Image
                   key={logo.name}
                   src={logo.src}
                   alt={logo.name}
-                  width={160}
-                  height={72}
+                  width={100}
+                  height={44}
                   loading="eager"
-                  style={{ objectFit: 'contain', width: 'auto', height: '72px', filter: 'brightness(0)' }}
+                  style={{ objectFit: 'contain', width: 'auto', height: '44px', filter: 'brightness(0)' }}
                 />
               ))}
             </div>
@@ -183,11 +183,11 @@ export default function HeroSection() {
               style={{
                 background: '#000',
                 color: '#fff',
-                padding: '18px 48px',
+                padding: '14px 32px',
                 borderRadius: '999px',
                 fontFamily: 'var(--font-inter), sans-serif',
                 fontWeight: 700,
-                fontSize: '1.1rem',
+                fontSize: '0.95rem',
                 textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
@@ -213,11 +213,11 @@ export default function HeroSection() {
                 background: '#fff',
                 color: '#000',
                 border: '2px solid #000',
-                padding: '18px 48px',
+                padding: '14px 32px',
                 borderRadius: '999px',
                 fontFamily: 'var(--font-inter), sans-serif',
                 fontWeight: 700,
-                fontSize: '1.1rem',
+                fontSize: '0.95rem',
                 textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
