@@ -13,7 +13,7 @@ export default function BrandTicker() {
         position: 'relative',
         transform: 'rotate(-4deg) scale(1.05)',
         transformOrigin: 'center',
-        marginTop: '60px', /* push down so left edge doesn't poke into hero 100vh */
+        marginTop: '-30px', /* overlap slightly with hero */
         marginBottom: '60px',
         zIndex: 10,
         boxShadow: '0 -10px 40px rgba(0,0,0,0.2)',

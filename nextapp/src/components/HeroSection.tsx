@@ -18,13 +18,13 @@ export default function HeroSection() {
       id="home"
       style={{
         position: 'relative',
-        minHeight: '100vh',
+        minHeight: '105vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: '160px',
-        paddingBottom: '120px',
+        paddingTop: '240px',
+        paddingBottom: '260px',
         paddingLeft: 'clamp(24px, 5vw, 60px)',
         paddingRight: 'clamp(24px, 5vw, 60px)',
         backgroundColor: '#ffffff',
@@ -62,7 +62,7 @@ export default function HeroSection() {
             transition={{ duration: 0.6, ease: 'backOut' }}
             style={{
               position: 'absolute',
-              bottom: '-10%', // Push it up above the logo
+              bottom: '10%', // Push it up above the logo
               zIndex: 1, // <--- BEHIND LOGO
               marginLeft: '-20px',
               width: 'clamp(200px, 30vw, 450px)', // Scaled down for 100% zoom
