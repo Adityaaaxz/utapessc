@@ -107,7 +107,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          style={{ display: 'flex', alignItems: 'center', gap: '20px', justifyContent: 'center', marginTop: '-10px' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '20px', justifyContent: 'center', marginTop: '20px' }}
         >
           <div style={{ width: '60px', height: '1px', background: '#000' }} />
           <span
@@ -146,14 +146,16 @@ export default function HeroSection() {
             <div style={{
               background: '#000',
               color: '#fff',
-              padding: '12px 32px',
+              padding: '16px 32px',
               borderBottom: '4px solid #FF6B00',
-              display: 'inline-block',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
               fontFamily: 'var(--font-inter), sans-serif',
               fontWeight: 800,
               letterSpacing: '0.15em',
-              fontSize: '0.9rem',
-              alignSelf: 'flex-start'
+              fontSize: '1.2rem',
             }}>
               THRIFT SHOES STORE
             </div>
@@ -165,10 +167,10 @@ export default function HeroSection() {
                   key={logo.name}
                   src={logo.src}
                   alt={logo.name}
-                  width={120}
-                  height={48}
+                  width={160}
+                  height={72}
                   loading="eager"
-                  style={{ objectFit: 'contain', width: 'auto', height: '48px', filter: 'brightness(0)' }}
+                  style={{ objectFit: 'contain', width: 'auto', height: '72px', filter: 'brightness(0)' }}
                 />
               ))}
             </div>
@@ -181,11 +183,11 @@ export default function HeroSection() {
               style={{
                 background: '#000',
                 color: '#fff',
-                padding: '16px 40px',
+                padding: '18px 48px',
                 borderRadius: '999px',
                 fontFamily: 'var(--font-inter), sans-serif',
                 fontWeight: 700,
-                fontSize: '0.95rem',
+                fontSize: '1.1rem',
                 textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
@@ -210,12 +212,12 @@ export default function HeroSection() {
               style={{
                 background: '#fff',
                 color: '#000',
-                border: '1px solid #000',
-                padding: '16px 40px',
+                border: '2px solid #000',
+                padding: '18px 48px',
                 borderRadius: '999px',
                 fontFamily: 'var(--font-inter), sans-serif',
                 fontWeight: 700,
-                fontSize: '0.95rem',
+                fontSize: '1.1rem',
                 textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
