@@ -11,10 +11,10 @@ export default function BrandTicker() {
         overflow: 'hidden',
         padding: '16px 0',
         position: 'relative',
-        transform: 'rotate(-4deg) scale(1.05)',
+        transform: 'rotate(-4deg) scale(1.1)',
         transformOrigin: 'center',
-        marginTop: '-30px', /* overlap slightly with hero */
-        marginBottom: '60px',
+        marginTop: '-80px', /* Increased negative margin to overlap Hero more */
+        marginBottom: '-40px', /* Negative margin to overlap ProductSection more */
         zIndex: 10,
         boxShadow: '0 -10px 40px rgba(0,0,0,0.2)',
       }}
