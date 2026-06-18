@@ -23,6 +23,25 @@
   z-index: 0;
 }
 
+/* ── WHITE GRAFFITI SKETCH BACKGROUND PATTERN ── */
+.white-graffiti-bg {
+  background-color: #fff;
+  position: relative;
+}
+.white-graffiti-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/background/hero-product-background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15; /* Adjust opacity for the watermark effect */
+  pointer-events: none;
+  z-index: 0;
+}
+
+
 /* ── RATING COUNT UP ── */
 @keyframes countUp {
   from { content: "0.0"; }

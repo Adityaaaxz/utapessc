@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { staggerContainer, fadeUp } from '@/lib/animations'
 
 const BRAND_LOGOS = [
@@ -14,140 +13,34 @@ const BRAND_LOGOS = [
 ]
 
 /* ────────────────────────────────────────
-   SVG GRAFFITI DRAWING ANIMATION
-   Draws UTAPES stroke-by-stroke, then
-   reveals the styled filled version
-──────────────────────────────────────── */
-function UtapesDrawAnimation({ onDone }: { onDone: () => void }) {
-  return (
-    <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center' }}>
-      <svg
-        viewBox="0 0 820 200"
-        style={{ width: '100%', maxWidth: '820px', overflow: 'visible' }}
-        aria-label="UTAPES"
-      >
-        {/* ── Black 3D shadow offset ── */}
-        <motion.text
-          x="412"
-          y="188"
-          textAnchor="middle"
-          style={{ fontFamily: 'var(--font-bebas), sans-serif', fontSize: '188px', letterSpacing: '6px' }}
-          fill="none"
-          stroke="rgba(0,0,0,0.18)"
-          strokeWidth="18"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ strokeDasharray: '0 7000', opacity: 0.7 }}
-          animate={{ strokeDasharray: '7000 0', opacity: 0.18 }}
-          transition={{ duration: 2.8, ease: 'easeInOut', delay: 0.1 }}
-        >
-          UTAPES
-        </motion.text>
-
-        {/* ── Orange glow stroke ── */}
-        <motion.text
-          x="408"
-          y="184"
-          textAnchor="middle"
-          style={{ fontFamily: 'var(--font-bebas), sans-serif', fontSize: '188px', letterSpacing: '6px' }}
-          fill="none"
-          stroke="#FF6B00"
-          strokeWidth="12"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ strokeDasharray: '0 7000' }}
-          animate={{ strokeDasharray: '7000 0' }}
-          transition={{ duration: 2.8, ease: 'easeInOut', delay: 0.15 }}
-        >
-          UTAPES
-        </motion.text>
-
-        {/* ── Main black stroke (drawing layer) ── */}
-        <motion.text
-          x="406"
-          y="182"
-          textAnchor="middle"
-          style={{ fontFamily: 'var(--font-bebas), sans-serif', fontSize: '188px', letterSpacing: '6px' }}
-          fill="none"
-          stroke="#000"
-          strokeWidth="6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ strokeDasharray: '0 7000' }}
-          animate={{ strokeDasharray: '7000 0' }}
-          transition={{ duration: 2.8, ease: 'easeInOut', delay: 0.2 }}
-          onAnimationComplete={onDone}
-        >
-          UTAPES
-        </motion.text>
-
-        {/* ── Tip "marker" dot that travels along stroke ── */}
-        <motion.circle
-          r="8"
-          fill="#FF6B00"
-          style={{ filter: 'blur(2px)' }}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: [0, 1, 1, 0],
-            x: [40, 200, 400, 620, 780],
-            y: [182, 175, 182, 175, 182],
-          }}
-          transition={{ duration: 2.8, ease: 'easeInOut', delay: 0.2, times: [0, 0.2, 0.5, 0.8, 1] }}
-        />
-      </svg>
-    </div>
-  )
-}
-
-/* ────────────────────────────────────────
-   FINAL STYLED UTAPES LOGO
+   FINAL STYLED UTAPES LOGO (Stacked CSS)
 ──────────────────────────────────────── */
 function UtapesLogo() {
+  const textStyle: React.CSSProperties = {
+    fontFamily: 'var(--font-bebas), sans-serif',
+    fontSize: 'clamp(100px, 18vw, 220px)',
+    letterSpacing: '0.04em',
+    lineHeight: 1,
+    position: 'absolute',
+    top: 0, left: 0, width: '100%', textAlign: 'center',
+    margin: 0,
+  }
+
   return (
-    <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center' }}>
-      <svg
-        viewBox="0 0 820 210"
-        style={{ width: '100%', maxWidth: '820px', overflow: 'visible' }}
-        aria-label="UTAPES"
-      >
-        {/* ── Deep black 3-D shadow ── */}
-        <text
-          x="412"
-          y="190"
-          textAnchor="middle"
-          style={{ fontFamily: 'var(--font-bebas), sans-serif', fontSize: '188px', letterSpacing: '6px' }}
-          fill="rgba(0,0,0,0.5)"
-        >
-          UTAPES
-        </text>
-
-        {/* ── Orange offset ── */}
-        <text
-          x="410"
-          y="187"
-          textAnchor="middle"
-          style={{ fontFamily: 'var(--font-bebas), sans-serif', fontSize: '188px', letterSpacing: '6px' }}
-          fill="#FF6B00"
-          stroke="#FF6B00"
-          strokeWidth="2"
-        >
-          UTAPES
-        </text>
-
-        {/* ── White fill with black stroke ── */}
-        <text
-          x="406"
-          y="183"
-          textAnchor="middle"
-          style={{ fontFamily: 'var(--font-bebas), sans-serif', fontSize: '188px', letterSpacing: '6px' }}
-          fill="#fff"
-          stroke="#000"
-          strokeWidth="6"
-          strokeLinejoin="round"
-        >
-          UTAPES
-        </text>
-      </svg>
+    <div style={{ position: 'relative', width: '100%', height: 'clamp(100px, 18vw, 220px)', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        {/* Layer 3: Black outline around the orange shadow */}
+        <div style={{ ...textStyle, color: '#000', WebkitTextStroke: '28px #000', transform: 'translate(12px, 16px)', zIndex: 1 }}>UTAPES</div>
+        
+        {/* Layer 2: Orange shadow/extrusion */}
+        <div style={{ ...textStyle, color: '#FF6B00', WebkitTextStroke: '18px #FF6B00', transform: 'translate(12px, 16px)', zIndex: 2 }}>UTAPES</div>
+        
+        {/* Layer 1: Main black outline for the white text */}
+        <div style={{ ...textStyle, color: '#000', WebkitTextStroke: '18px #000', zIndex: 3 }}>UTAPES</div>
+        
+        {/* Layer 0: The crisp white text fill (no stroke so it doesnt eat inward) */}
+        <div style={{ ...textStyle, color: '#fff', zIndex: 4 }}>UTAPES</div>
+      </div>
     </div>
   )
 }
@@ -156,244 +49,179 @@ function UtapesLogo() {
    HERO SECTION
 ──────────────────────────────────────── */
 export default function HeroSection() {
-  const [phase, setPhase] = useState<'drawing' | 'styled'>('drawing')
-  const [contentVisible, setContentVisible] = useState(false)
-
-  const handleDrawDone = () => {
-    setTimeout(() => setPhase('styled'), 200)
-    setTimeout(() => setContentVisible(true), 600)
-  }
-
   return (
     <section
       id="home"
-      className="graffiti-bg"
       style={{
         position: 'relative',
         minHeight: '100vh',
-        background: '#fff',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: '90px',
-        paddingBottom: '40px',
+        paddingTop: '160px',
+        paddingBottom: '120px',
         paddingLeft: '24px',
         paddingRight: '24px',
         overflow: 'hidden',
+        backgroundColor: '#ffffff',
+        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M10 80 Q50 20 100 70 Q140 110 190 60 Q230 20 280 80 Q320 130 370 70' stroke='%23000' fill='none' stroke-width='1.5' opacity='0.07'/%3E%3Cpath d='M5 180 Q60 120 120 170 Q180 220 240 160 Q290 110 350 170 Q390 210 400 180' stroke='%23000' fill='none' stroke-width='1' opacity='0.05'/%3E%3Cpath d='M20 280 Q80 230 130 270 Q175 310 230 260 Q275 215 340 270' stroke='%23000' fill='none' stroke-width='1.5' opacity='0.06'/%3E%3Ccircle cx='60' cy='320' r='3' fill='%23000' opacity='0.04'/%3E%3Ccircle cx='200' cy='100' r='2' fill='%23000' opacity='0.04'/%3E%3Ccircle cx='340' cy='230' r='4' fill='%23000' opacity='0.03'/%3E%3Cpath d='M70 350 Q100 310 140 350 Q170 385 210 345' stroke='%23000' fill='none' stroke-width='1' opacity='0.05'/%3E%3Cpath d='M250 30 Q270 10 300 30 Q325 50 350 25' stroke='%23000' fill='none' stroke-width='1.5' opacity='0.06'/%3E%3C/svg%3E")`,
+        backgroundSize: '400px 400px',
       }}
     >
-      {/* Big faded "UTAPESSC" watermark right bottom */}
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          bottom: '-20px',
-          right: '-10px',
-          fontFamily: 'var(--font-bebas), sans-serif',
-          fontSize: 'clamp(80px, 14vw, 160px)',
-          color: 'rgba(0,0,0,0.04)',
-          letterSpacing: '0.04em',
-          pointerEvents: 'none',
-          userSelect: 'none',
-          lineHeight: 1,
-        }}
-      >
-        UTAPESSC
-      </div>
-
-      <div style={{ maxWidth: '900px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', position: 'relative', zIndex: 1, textAlign: 'center' }}>
+      <div style={{ maxWidth: '1100px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', position: 'relative', zIndex: 1 }}>
 
         {/* Crown / Mahkota */}
         <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -30, rotate: -20 }}
+          animate={{ opacity: 1, y: 0, rotate: -5 }}
           transition={{ duration: 0.6, ease: 'backOut' }}
+          style={{ zIndex: 10, position: 'relative', marginBottom: '-50px', marginLeft: '-20px' }}
         >
           <Image
             src="/assets/maskot/mahkota.png"
             alt="Crown"
-            width={100}
-            height={70}
+            width={160}
+            height={110}
             loading="eager"
-            style={{ objectFit: 'contain', width: 'auto', height: '70px', marginBottom: '-10px', filter: 'drop-shadow(0 4px 12px rgba(255,107,0,0.4))' }}
+            style={{ objectFit: 'contain', width: 'auto', height: '110px' }}
           />
         </motion.div>
 
-        {/* ── UTAPES drawing animation → styled logo ── */}
-        <div style={{ width: '100%', minHeight: '210px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <AnimatePresence mode="wait">
-            {phase === 'drawing' ? (
-              <motion.div
-                key="drawing"
-                style={{ width: '100%' }}
-                exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.3 } }}
-              >
-                <UtapesDrawAnimation onDone={handleDrawDone} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="styled"
-                style={{ width: '100%' }}
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease: 'backOut' }}
-              >
-                <UtapesLogo />
-              </motion.div>
-            )}
-          </AnimatePresence>
+        {/* ── STYLED UTAPES LOGO ── */}
+        <div style={{ width: '100%', minHeight: 'clamp(120px, 20vw, 260px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: 'backOut', delay: 0.2 }}
+            style={{ width: '100%' }}
+          >
+            <UtapesLogo />
+          </motion.div>
         </div>
 
-        {/* ── Rest of hero content (visible after drawing) ── */}
-        <AnimatePresence>
-          {contentVisible && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', width: '100%' }}
-            >
+        {/* ── THRIFT BEST ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          style={{ display: 'flex', alignItems: 'center', gap: '24px', justifyContent: 'center', marginTop: '10px' }}
+        >
+          <div style={{ width: '80px', height: '2px', background: '#000' }} />
+          <span
+            style={{
+              fontFamily: 'var(--font-inter), sans-serif',
+              fontWeight: 900,
+              fontSize: 'clamp(18px, 3vw, 28px)',
+              letterSpacing: '0.1em',
+              color: '#000',
+            }}
+          >
+            THRIFT BEST
+          </span>
+          <div style={{ width: '80px', height: '2px', background: '#000' }} />
+        </motion.div>
 
-              {/* THRIFT BEST */}
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                animate="visible"
-                style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}
-              >
-                <div style={{ width: '60px', height: '2px', background: '#000' }} />
-                <motion.span
-                  variants={fadeUp}
-                  style={{
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: 'clamp(18px, 3vw, 26px)',
-                    letterSpacing: '0.3em',
-                    color: '#000',
-                  }}
-                >
-                  THRIFT BEST
-                </motion.span>
-                <div style={{ width: '60px', height: '2px', background: '#000' }} />
-              </motion.div>
-
-              {/* THRIFT SHOES STORE badge */}
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                animate="visible"
-                style={{
+        {/* ── Bottom Content Row (Left: Box & Logos, Right: Buttons) ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'flex-end', 
+            flexWrap: 'wrap',
+            width: '100%', 
+            marginTop: '60px',
+            gap: '40px'
+          }}
+        >
+              
+              {/* LEFT COLUMN */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+                {/* Black Box */}
+                <div style={{
                   background: '#000',
                   color: '#fff',
-                  fontFamily: 'var(--font-bebas), sans-serif',
-                  fontSize: '0.9rem',
-                  letterSpacing: '0.25em',
-                  padding: '8px 20px',
+                  padding: '16px 32px',
+                  borderBottom: '6px solid #FF6B00',
+                  borderLeft: '6px solid #FF6B00',
                   display: 'inline-block',
-                  borderRadius: '4px',
-                }}
-              >
-                THRIFT SHOES STORE
-              </motion.div>
+                  fontFamily: 'var(--font-inter), sans-serif',
+                  fontWeight: 800,
+                  letterSpacing: '0.15em',
+                  fontSize: '1rem',
+                  alignSelf: 'flex-start'
+                }}>
+                  THRIFT SHOES STORE
+                </div>
 
-              {/* Brand logos row */}
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                animate="visible"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '20px',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  background: 'rgba(0,0,0,0.04)',
-                  border: '1px solid rgba(0,0,0,0.08)',
-                  borderRadius: '10px',
-                  padding: '14px 24px',
-                }}
-              >
-                {BRAND_LOGOS.map((logo) => (
-                  <motion.div key={logo.name} variants={fadeUp} whileHover={{ scale: 1.15 }}>
+                {/* Logos */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+                  {BRAND_LOGOS.map((logo) => (
                     <Image
+                      key={logo.name}
                       src={logo.src}
                       alt={logo.name}
                       width={50}
                       height={32}
-                      style={{ objectFit: 'contain', filter: 'grayscale(100%) brightness(0.2)' }}
+                      loading="eager"
+                      style={{ objectFit: 'contain', width: 'auto', height: '32px', filter: 'grayscale(100%) contrast(200%)' }}
                     />
-                  </motion.div>
-                ))}
-              </motion.div>
+                  ))}
+                </div>
+              </div>
 
-              {/* CTA Buttons */}
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                animate="visible"
-                style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', justifyContent: 'center' }}
-              >
-                <motion.a
-                  variants={fadeUp}
+              {/* RIGHT COLUMN */}
+              <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                <a
                   href="#product"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
                   style={{
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: '1.1rem',
-                    letterSpacing: '0.1em',
-                    padding: '12px 28px',
-                    border: '2px solid #000',
-                    borderRadius: '4px',
-                    color: '#000',
-                    background: 'transparent',
+                    background: '#000',
+                    color: '#fff',
+                    padding: '14px 36px',
+                    borderRadius: '12px',
+                    fontFamily: 'var(--font-inter), sans-serif',
+                    fontWeight: 700,
+                    fontSize: '1rem',
                     textDecoration: 'none',
-                    display: 'inline-block',
-                    transition: 'all 0.2s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'transform 0.2s',
                   }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = '#000'
-                    ;(e.currentTarget as HTMLElement).style.color = '#fff'
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = 'transparent'
-                    ;(e.currentTarget as HTMLElement).style.color = '#000'
-                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)' }}
                 >
                   Browse Catalog
-                </motion.a>
-
-                <motion.a
-                  variants={fadeUp}
+                </a>
+                
+                <a
                   href="#product"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
                   style={{
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: '1.1rem',
-                    letterSpacing: '0.1em',
-                    padding: '12px 28px',
-                    border: '2px solid #FF6B00',
-                    borderRadius: '4px',
-                    color: '#fff',
-                    background: '#FF6B00',
+                    background: '#fff',
+                    color: '#000',
+                    border: '2px solid #ccc',
+                    padding: '14px 36px',
+                    borderRadius: '12px',
+                    fontFamily: 'var(--font-inter), sans-serif',
+                    fontWeight: 700,
+                    fontSize: '1rem',
                     textDecoration: 'none',
-                    display: 'inline-block',
-                    boxShadow: '0 4px 20px rgba(255,107,0,0.35)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'transform 0.2s',
                   }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)' }}
                 >
                   Shop Now
-                </motion.a>
-              </motion.div>
+                </a>
+              </div>
 
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Placeholder content before animation finishes */}
-        {!contentVisible && (
-          <div style={{ height: '200px' }} />
-        )}
+          </motion.div>
 
       </div>
     </section>

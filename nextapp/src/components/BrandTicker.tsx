@@ -7,29 +7,37 @@ export default function BrandTicker() {
     <section
       style={{
         background: '#000',
-        borderTop: '3px solid #FF6B00',
-        borderBottom: '3px solid #FF6B00',
+        borderTop: '6px solid #FF6B00',
         overflow: 'hidden',
         padding: '16px 0',
         position: 'relative',
+        transform: 'rotate(-4deg) scale(1.05)',
+        transformOrigin: 'center',
+        marginTop: '-30px', /* overlap slightly with hero */
+        marginBottom: '60px',
+        zIndex: 10,
+        boxShadow: '0 -10px 40px rgba(0,0,0,0.2)',
       }}
     >
-      {/* Fade edges */}
-      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '100px', background: 'linear-gradient(90deg, #000, transparent)', zIndex: 2, pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '100px', background: 'linear-gradient(270deg, #000, transparent)', zIndex: 2, pointerEvents: 'none' }} />
-
       <div className="marquee-track">
         {ITEMS.map((brand, i) => (
           <div
             key={i}
-            style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '0 24px', flexShrink: 0 }}
+            style={{ display: 'flex', alignItems: 'center', gap: '40px', padding: '0 30px', flexShrink: 0 }}
           >
-            <span style={{ color: '#FF6B00', fontSize: '10px', lineHeight: 1 }}>●</span>
+            <span style={{
+              color: '#d1d5db', /* light gray */
+              fontSize: '12px',
+              filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.8))'
+            }}>
+              ●
+            </span>
             <span
               style={{
-                fontFamily: 'var(--font-bebas), sans-serif',
-                fontSize: 'clamp(22px, 4vw, 38px)',
-                letterSpacing: '0.12em',
+                fontFamily: 'var(--font-inter), sans-serif',
+                fontWeight: 900,
+                fontSize: 'clamp(24px, 4vw, 36px)',
+                letterSpacing: '0.1em',
                 color: '#fff',
                 whiteSpace: 'nowrap',
               }}
