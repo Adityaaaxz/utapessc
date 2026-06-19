@@ -6,9 +6,9 @@ import { User, Search, ShoppingCart } from 'lucide-react'
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 
 const LINKS = [
-  { label: 'Home',    href: '#home' },
+  { label: 'Home', href: '#home' },
   { label: 'Product', href: '#product' },
-  { label: 'About',   href: '#about' },
+  { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -25,12 +25,12 @@ export default function Navbar() {
   })
 
   return (
-    <motion.nav 
+    <motion.nav
       initial={{ y: -100, opacity: 0 }}
-      animate={{ 
-        y: 0, 
+      animate={{
+        y: 0,
         opacity: 1,
-        padding: isScrolled ? '14px 60px' : '24px 60px',
+        padding: isScrolled ? '6px 60px' : '10px 60px',
         backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.65)' : 'rgba(255, 255, 255, 0.0)',
         borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.4)' : '1px solid transparent',
         boxShadow: isScrolled ? '0 10px 30px rgba(0,0,0,0.05)' : 'none',
@@ -50,7 +50,7 @@ export default function Navbar() {
       }}>
       {/* ── LEFT: Logo ── */}
       <Link href="#home" style={{ textDecoration: 'none' }}>
-        <motion.span 
+        <motion.span
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           style={{
@@ -66,8 +66,8 @@ export default function Navbar() {
       </Link>
 
       {/* ── CENTER: Pill Navigation ── */}
-      <motion.div 
-        className="desktop-nav" 
+      <motion.div
+        className="desktop-nav"
         animate={{
           backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.8)' : 'rgba(239, 239, 239, 1)',
           boxShadow: isScrolled ? '0 4px 24px rgba(0,0,0,0.04)' : '0 4px 24px rgba(0,0,0,0.02)',
@@ -75,12 +75,12 @@ export default function Navbar() {
         }}
         transition={{ duration: 0.3 }}
         style={{
-        borderRadius: '999px',
-        padding: '6px',
-        display: 'flex',
-        gap: '4px',
-        willChange: 'background-color, box-shadow',
-      }}>
+          borderRadius: '999px',
+          padding: '4px',
+          display: 'flex',
+          gap: '4px',
+          willChange: 'background-color, box-shadow',
+        }}>
         {LINKS.map((l) => (
           <Link
             key={l.label}
@@ -95,7 +95,7 @@ export default function Navbar() {
                 fontSize: '0.85rem',
                 color: active === l.label ? '#fff' : '#000',
                 background: active === l.label ? '#000' : 'transparent',
-                padding: '10px 28px',
+                padding: '6px 20px',
                 borderRadius: '999px',
                 display: 'flex',
                 alignItems: 'center',
@@ -120,7 +120,7 @@ export default function Navbar() {
         >
           <User size={22} strokeWidth={2.5} />
         </motion.button>
-        
+
         <motion.button
           aria-label="Search"
           style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#000', display: 'flex' }}
