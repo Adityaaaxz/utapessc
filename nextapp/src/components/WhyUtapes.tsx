@@ -90,11 +90,11 @@ export default function WhyUtapes() {
               }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor = '#FF6B00'
-                  ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-6px)'
+                    ; (e.currentTarget as HTMLElement).style.transform = 'translateY(-6px)'
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor = '#222'
-                  ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+                    ; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
                 }}
               >
                 <Image

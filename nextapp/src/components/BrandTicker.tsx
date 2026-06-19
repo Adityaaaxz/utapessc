@@ -14,7 +14,7 @@ export default function BrandTicker() {
         transform: 'rotate(-4deg) scale(1.1)',
         transformOrigin: 'center',
         marginTop: '-80px', /* Increased negative margin to overlap Hero more */
-        marginBottom: '-40px', /* Negative margin to overlap ProductSection more */
+        marginBottom: '20px', /* Positive margin to give spacing to ProductSection */
         zIndex: 10,
         boxShadow: '0 -10px 40px rgba(0,0,0,0.2)',
       }}
