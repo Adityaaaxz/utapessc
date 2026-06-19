@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { slideLeft, slideRight } from '@/lib/animations'
 
 const STORE_INFO = [
-  { label: 'Alamat',    value: 'Jl. Sneaker No. 47, Bandung, Jawa Barat 40135' },
+  { label: 'Alamat',    value: '45P4+VCM, Ciharashas, Kec. Cilaku, Kabupaten Cianjur, Jawa Barat 43285' },
   { label: 'Jam Buka', value: 'Senin – Sabtu: 10.00 – 21.00 WIB' },
   { label: 'Telepon',  value: '+62 812-3456-7890' },
   { label: 'Email',    value: 'hello@utapes.sc' },
@@ -38,7 +38,7 @@ export default function LokasiToko() {
           </p>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', alignItems: 'stretch' }}>
 
           {/* LEFT: Map embed */}
           <motion.div
@@ -46,13 +46,12 @@ export default function LokasiToko() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={slideLeft}
-            style={{ borderRadius: '16px', overflow: 'hidden', border: '3px solid #000', boxShadow: '6px 6px 0 #FF6B00' }}
+            style={{ borderRadius: '16px', overflow: 'hidden', border: '3px solid #000', boxShadow: '6px 6px 0 #FF6B00', display: 'flex', flexDirection: 'column' }}
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.7484085282!2d107.60848531529!3d-6.914744394989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e63b47ab76c7%3A0x7a4e3d9f52d65d45!2sBandung%2C%20Kota%20Bandung%2C%20Jawa%20Barat!5e0!3m2!1sen!2sid!4v1620000000000!5m2!1sen!2sid"
+              src="https://maps.google.com/maps?q=45P4%2BVCM%2C%20Ciharashas%2C%20Kec.%20Cilaku%2C%20Kabupaten%20Cianjur%2C%20Jawa%20Barat%2043285&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
-              height="360"
-              style={{ border: 0, display: 'block' }}
+              style={{ border: 0, display: 'block', flexGrow: 1, minHeight: '360px' }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
