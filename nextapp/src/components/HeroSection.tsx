@@ -4,10 +4,10 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const BRAND_LOGOS = [
-  { name: 'Nike',    src: '/assets/logos/nike.png' },
-  { name: 'Adidas',  src: '/assets/logos/adidas.png' },
-  { name: 'Vans',    src: '/assets/logos/vans.png' },
-  { name: 'Puma',    src: '/assets/logos/puma.png' },
+  { name: 'Nike', src: '/assets/logos/nike.png' },
+  { name: 'Adidas', src: '/assets/logos/adidas.png' },
+  { name: 'Vans', src: '/assets/logos/vans.png' },
+  { name: 'Puma', src: '/assets/logos/puma.png' },
   { name: 'Salomon', src: '/assets/logos/salomon.png' },
 ]
 
@@ -18,12 +18,13 @@ export default function HeroSection() {
       style={{
         position: 'relative',
         minHeight: '100vh',
+        height: '100vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: '80px',
-        paddingBottom: '40px',
+        justifyContent: 'space-between',
+        paddingTop: '96px',
+        paddingBottom: '48px',
         paddingLeft: 'clamp(20px, 4vw, 60px)',
         paddingRight: 'clamp(20px, 4vw, 60px)',
         backgroundColor: '#ffffff',
@@ -39,7 +40,7 @@ export default function HeroSection() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.18,
+          opacity: 0.85,
           zIndex: 0,
           pointerEvents: 'none',
         }}
@@ -53,6 +54,8 @@ export default function HeroSection() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          justifyContent: 'space-between',
+          flex: 1,
           position: 'relative',
           zIndex: 1,
         }}
@@ -65,52 +68,53 @@ export default function HeroSection() {
             flexDirection: 'column',
             alignItems: 'center',
             width: '100%',
+            marginTop: 'clamp(30px, 7vh, 80px)',
             marginBottom: 'clamp(24px, 5vh, 48px)',
           }}
         >
-          {/* Crown */}
-          <motion.div
-            animate={{ y: [-8, 4, -8] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-            style={{
-              marginBottom: '-10px',
-              zIndex: 2,
-              position: 'relative',
-            }}
-          >
-            <Image
-              src="/assets/landing-asset/hero-asset/mahkota.png"
-              alt="Crown"
-              width={140}
-              height={100}
-              loading="eager"
-              style={{ objectFit: 'contain', width: 'clamp(80px, 14vw, 140px)', height: 'auto' }}
-            />
-          </motion.div>
+          {/* Crown + Logo stacked — crown on top, logo below */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
 
-          {/* UTAPES Logo Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: 'backOut', delay: 0.1 }}
-            style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
-          >
-            <Image
-              src="/assets/landing-asset/hero-asset/hero-logo.png"
-              alt="UTAPES"
-              width={900}
-              height={280}
-              loading="eager"
-              priority
-              style={{
-                objectFit: 'contain',
-                width: '100%',
-                maxWidth: 'clamp(280px, 70vw, 700px)',
-                height: 'auto',
-                filter: 'drop-shadow(6px 6px 0px #FF6B00) drop-shadow(0px 8px 20px rgba(0,0,0,0.18))',
-              }}
-            />
-          </motion.div>
+            {/* Crown — floats above logo */}
+            <motion.div
+              animate={{ y: [-4, 10, -4] }}
+              transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ zIndex: 0, pointerEvents: 'none' }}
+            >
+              <Image
+                src="/assets/landing-asset/hero-asset/mahkota.png"
+                alt="Crown"
+                width={210}
+                height={150}
+                loading="eager"
+                style={{ objectFit: 'contain', width: 'clamp(160px, 22vw, 260px)', height: 'auto', display: 'block' }}
+              />
+            </motion.div>
+
+            {/* UTAPES Logo — pulled up to be close to crown */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: 'backOut', delay: 0.1 }}
+              style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '-100px', zIndex: 2 }}
+            >
+              <Image
+                src="/assets/landing-asset/hero-asset/hero-logo.png"
+                alt="UTAPES"
+                width={900}
+                height={280}
+                loading="eager"
+                priority
+                style={{
+                  objectFit: 'contain',
+                  width: '100%',
+                  maxWidth: 'clamp(280px, 70vw, 700px)',
+                  height: 'auto',
+                  filter: 'drop-shadow(6px 6px 0px #FF6B00) drop-shadow(0px 8px 20px rgba(0,0,0,0.18))',
+                }}
+              />
+            </motion.div>
+          </div>
 
           {/* THRIFT BEST divider */}
           <motion.div
@@ -228,11 +232,11 @@ export default function HeroSection() {
               }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
-                ;(e.currentTarget as HTMLElement).style.boxShadow = '0 10px 36px rgba(255, 107, 0, 0.5), 0 2px 0 #FF6B00'
+                  ; (e.currentTarget as HTMLElement).style.boxShadow = '0 10px 36px rgba(255, 107, 0, 0.5), 0 2px 0 #FF6B00'
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
-                ;(e.currentTarget as HTMLElement).style.boxShadow = '0 6px 24px rgba(255, 107, 0, 0.35), 0 2px 0 #FF6B00'
+                  ; (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 24px rgba(255, 107, 0, 0.35), 0 2px 0 #FF6B00'
               }}
             >
               Browse Catalog
@@ -259,11 +263,11 @@ export default function HeroSection() {
               }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
-                ;(e.currentTarget as HTMLElement).style.boxShadow = '0 6px 16px rgba(0,0,0,0.1)'
+                  ; (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 16px rgba(0,0,0,0.1)'
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
-                ;(e.currentTarget as HTMLElement).style.boxShadow = '0 4px 12px rgba(0,0,0,0.06)'
+                  ; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 12px rgba(0,0,0,0.06)'
               }}
             >
               Shop Now

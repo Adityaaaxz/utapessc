@@ -23,7 +23,7 @@ export default function ProductSection() {
       style={{
         position: 'relative',
         background: '#fff',
-        padding: 'clamp(60px, 10vw, 100px) 24px',
+        padding: 'clamp(100px, 15vw, 140px) 24px clamp(60px, 10vw, 100px)',
         overflow: 'hidden',
       }}
     >

@@ -13,7 +13,9 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <HeroSection />
+      <div style={{ height: '100vh', overflow: 'hidden' }}>
+        <HeroSection />
+      </div>
       <BrandTicker />
       <ProductSection />
       <SejarahSection />
