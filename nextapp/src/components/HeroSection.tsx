@@ -70,14 +70,19 @@ export default function HeroSection() {
               pointerEvents: 'none'
             }}
           >
-            <Image
-              src="/assets/landing-asset/hero-asset/mahkota.png"
-              alt="Crown"
-              width={800}
-              height={560}
-              loading="eager"
-              style={{ objectFit: 'contain', width: '100%', height: 'auto' }}
-            />
+            <motion.div
+              animate={{ y: [-15, 5, -15] }}
+              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+            >
+              <Image
+                src="/assets/landing-asset/hero-asset/mahkota.png"
+                alt="Crown"
+                width={800}
+                height={560}
+                loading="eager"
+                style={{ objectFit: 'contain', width: '100%', height: 'auto' }}
+              />
+            </motion.div>
           </motion.div>
 
           <motion.div

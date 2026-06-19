@@ -6,10 +6,10 @@ import { motion } from 'framer-motion';
 const BRANDS = ['NIKE', 'ADIDAS', 'VANS', 'PUMA', 'SOLOMON'];
 
 const brandLogos: Record<string, string> = {
-  NIKE:    '/assets/logos/nike.png',
-  ADIDAS:  '/assets/logos/adidas.png',
-  VANS:    '/assets/logos/vans.png',
-  PUMA:    '/assets/logos/puma.png',
+  NIKE: '/assets/logos/nike.png',
+  ADIDAS: '/assets/logos/adidas.png',
+  VANS: '/assets/logos/vans.png',
+  PUMA: '/assets/logos/puma.png',
   SOLOMON: '/assets/logos/salomon.png',
 };
 
@@ -21,7 +21,7 @@ export default function BrandMarquee() {
     <section
       style={{
         background: '#0A0A0A',
-        borderTop:    '2px solid var(--orange)',
+        borderTop: '2px solid var(--orange)',
         borderBottom: '2px solid var(--orange)',
         overflow: 'hidden',
         padding: '18px 0',
