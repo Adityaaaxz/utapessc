@@ -71,7 +71,7 @@ export default function HeroSection() {
             }}
           >
             <motion.div
-              animate={{ y: [-15, 5, -15] }}
+              animate={{ y: [-5, 5, -5] }}
               transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
             >
               <Image

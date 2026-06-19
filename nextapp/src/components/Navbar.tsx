@@ -49,7 +49,18 @@ export default function Navbar() {
         willChange: 'padding, background-color',
       }}>
       {/* ── LEFT: Logo ── */}
-      <Link href="#home" style={{ textDecoration: 'none' }}>
+      <Link 
+        href="#home" 
+        style={{ textDecoration: 'none' }}
+        onClick={(e) => {
+          e.preventDefault();
+          const target = document.querySelector('#home');
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            window.history.pushState(null, '', '#home');
+          }
+        }}
+      >
         <motion.span
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -85,7 +96,17 @@ export default function Navbar() {
           <Link
             key={l.label}
             href={l.href}
-            onClick={() => setActive(l.label)}
+            onClick={(e) => {
+              setActive(l.label);
+              if (l.href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(l.href);
+                if (target) {
+                  target.scrollIntoView({ behavior: 'smooth' });
+                  window.history.pushState(null, '', l.href);
+                }
+              }
+            }}
             style={{ textDecoration: 'none' }}
           >
             <motion.div

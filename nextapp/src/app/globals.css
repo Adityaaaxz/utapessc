@@ -2,15 +2,24 @@
 
 /* ── MARQUEE ── */
 @keyframes marquee-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
+
 .marquee-track {
   animation: marquee-scroll 22s linear infinite;
   display: flex;
   width: max-content;
 }
-.marquee-track:hover { animation-play-state: paused; }
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
 
 /* ── GRAFFITI SKETCH BACKGROUND PATTERN ── */
 .graffiti-bg::before {
@@ -28,6 +37,7 @@
   background-color: #fff;
   position: relative;
 }
+
 .white-graffiti-bg::before {
   content: '';
   position: absolute;
@@ -36,7 +46,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.15; /* Adjust opacity for the watermark effect */
+  opacity: 0.15;
+  /* Adjust opacity for the watermark effect */
   pointer-events: none;
   z-index: 0;
 }
@@ -44,29 +55,52 @@
 
 /* ── RATING COUNT UP ── */
 @keyframes countUp {
-  from { content: "0.0"; }
-  to   { content: "4.9"; }
+  from {
+    content: "0.0";
+  }
+
+  to {
+    content: "4.9";
+  }
 }
 
 /* ── CARD HOVER GLOW ── */
 .product-card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .product-card-hover:hover {
   transform: scale(1.04);
   box-shadow: 0 0 30px rgba(255, 107, 0, 0.4), 0 0 60px rgba(255, 107, 0, 0.1);
 }
 
 /* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #FF6B00; border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FF6B00;
+  border-radius: 3px;
+}
 
 /* ── MOBILE UTILS ── */
 @media (max-width: 768px) {
-  .desktop-nav { display: none !important; }
-  .mobile-menu-btn { display: flex !important; }
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: flex !important;
+  }
 }
+
 @media (min-width: 769px) {
-  .mobile-menu-btn { display: none !important; }
+  .mobile-menu-btn {
+    display: none !important;
+  }
 }
