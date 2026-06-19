@@ -6,10 +6,11 @@ import { Search, ShoppingCart, X, MoreHorizontal } from 'lucide-react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 
 const LINKS = [
-  { label: 'Home',    href: '#home' },
-  { label: 'Product', href: '#product' },
-  { label: 'About',   href: '#about' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home',      href: '#home' },
+  { label: 'Product',   href: '#product' },
+  { label: 'About',     href: '#about' },
+  { label: 'Testimoni', href: '#testimoni' },
+  { label: 'Contact',   href: '#contact' },
 ]
 
 function useIsMobile(breakpoint = 768) {
@@ -27,9 +28,9 @@ function useScrollSpy() {
   const [activeSection, setActiveSection] = useState('Home')
 
   useEffect(() => {
-    const sectionIds = ['home', 'product', 'about', 'contact']
+    const sectionIds = ['home', 'product', 'about', 'testimoni', 'contact']
     const labelMap: Record<string, string> = {
-      home: 'Home', product: 'Product', about: 'About', contact: 'Contact',
+      home: 'Home', product: 'Product', about: 'About', testimoni: 'Testimoni', contact: 'Contact',
     }
 
     const observers: IntersectionObserver[] = []
@@ -47,7 +48,7 @@ function useScrollSpy() {
           })
         },
         {
-          rootMargin: '-40% 0px -40% 0px', // trigger when section is in middle 20% of viewport
+          rootMargin: '-20% 0px -40% 0px', // trigger when section is in 20%-60% of viewport
           threshold: 0,
         }
       )
@@ -59,7 +60,7 @@ function useScrollSpy() {
     return () => observers.forEach((obs) => obs.disconnect())
   }, [])
 
-  return activeSection
+  return [activeSection, setActiveSection] as const
 }
 
 export default function Navbar() {
@@ -70,7 +71,7 @@ export default function Navbar() {
   const searchInputRef = useRef<HTMLInputElement>(null)
   const { scrollY }    = useScroll()
   const isMobile       = useIsMobile()
-  const active         = useScrollSpy()
+  const [active, setActive] = useScrollSpy()
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setIsScrolled((prev) => {
@@ -92,6 +93,19 @@ export default function Navbar() {
     setSearchOpen(false)
     const productSection = document.getElementById('product')
     if (productSection) productSection.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, label: string) => {
+    e.preventDefault()
+    setActive(label)
+    const targetId = href.substring(1)
+    const elem = document.getElementById(targetId)
+    if (elem) {
+      elem.scrollIntoView({ behavior: 'smooth' })
+    }
+    if (isMobile) {
+      setMobileMenuOpen(false)
+    }
   }
 
   return (
@@ -151,7 +165,7 @@ export default function Navbar() {
             style={{ borderRadius: '999px', padding: '4px', display: 'flex', gap: '2px' }}
           >
             {LINKS.map((l) => (
-              <Link key={l.label} href={l.href} style={{ textDecoration: 'none' }}>
+              <Link key={l.label} href={l.href} style={{ textDecoration: 'none' }} onClick={(e) => handleLinkClick(e, l.href, l.label)}>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -407,7 +421,7 @@ export default function Navbar() {
                 <Link
                   key={l.label}
                   href={l.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleLinkClick(e, l.href, l.label)}
                   style={{ textDecoration: 'none', display: 'block' }}
                 >
                   <motion.div

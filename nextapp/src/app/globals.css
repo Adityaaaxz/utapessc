@@ -10,15 +10,24 @@
 
 /* ── MARQUEE ── */
 @keyframes marquee-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
+
 .marquee-track {
   animation: marquee-scroll 22s linear infinite;
   display: flex;
   width: max-content;
 }
-.marquee-track:hover { animation-play-state: paused; }
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
 
 /* ── GRAFFITI SKETCH BACKGROUND PATTERN ── */
 .graffiti-bg::before {
@@ -36,6 +45,7 @@
   background-color: #fff;
   position: relative;
 }
+
 .white-graffiti-bg::before {
   content: '';
   position: absolute;
@@ -52,8 +62,13 @@
 
 /* ── RATING COUNT UP ── */
 @keyframes countUp {
-  from { content: "0.0"; }
-  to   { content: "4.9"; }
+  from {
+    content: "0.0";
+  }
+
+  to {
+    content: "4.9";
+  }
 }
 
 /* ── PRODUCT CARD (dark card base) ── */
@@ -66,6 +81,7 @@
   width: 100%;
   color: #ffffff;
 }
+
 .product-card p,
 .product-card span,
 .product-card div {
@@ -76,6 +92,7 @@
 .product-card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .product-card-hover:hover {
   transform: scale(1.04);
   box-shadow: 0 0 30px rgba(255, 107, 0, 0.4), 0 0 60px rgba(255, 107, 0, 0.1);
@@ -95,10 +112,12 @@
   font-weight: 900;
   transition: background 0.2s, transform 0.15s;
 }
+
 .btn-orange:hover {
   background: #e55f00;
   transform: translateY(-1px);
 }
+
 .btn-outline {
   background: transparent;
   color: #000;
@@ -112,6 +131,7 @@
   font-weight: 900;
   transition: background 0.2s, color 0.2s, transform 0.15s;
 }
+
 .btn-outline:hover {
   background: #000;
   color: #fff;
@@ -123,20 +143,24 @@
   perspective: 1000px;
   cursor: pointer;
 }
+
 .flip-card-inner {
   position: relative;
   width: 100%;
   transform-style: preserve-3d;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 .flip-card-wrapper.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
+
 .flip-card-front,
 .flip-card-back {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+
 .flip-card-back {
   position: absolute;
   inset: 0;
@@ -144,21 +168,43 @@
 }
 
 /* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #FF6B00; border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FF6B00;
+  border-radius: 3px;
+}
 
 /* ── MOBILE UTILS ── */
 @media (max-width: 768px) {
-  .desktop-nav { display: none !important; }
-  .mobile-menu-btn { display: flex !important; }
-  .search-label { display: none !important; }
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+
+  .search-label {
+    display: none !important;
+  }
 }
+
 @media (min-width: 769px) {
-  .mobile-menu-btn { display: none !important; }
+  .mobile-menu-btn {
+    display: none !important;
+  }
 }
 
 /* ── SEARCH LABEL (hide on small screens) ── */
 @media (max-width: 480px) {
-  .search-label { display: none !important; }
+  .search-label {
+    display: none !important;
+  }
 }

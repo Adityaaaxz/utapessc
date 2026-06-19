@@ -13,8 +13,8 @@ export default function BrandTicker() {
         position: 'relative',
         transform: 'rotate(-4deg) scale(1.1)',
         transformOrigin: 'center',
-        marginTop: '-80px', /* Increased negative margin to overlap Hero more */
-        marginBottom: '-40px', /* Negative margin to overlap ProductSection more */
+        marginTop: '120px',
+        marginBottom: '-40px',
         zIndex: 10,
         boxShadow: '0 -10px 40px rgba(0,0,0,0.2)',
       }}

@@ -33,6 +33,7 @@ const TESTIMONIALS = [
 export default function Testimonials() {
   return (
     <section
+      id="testimoni"
       style={{
         background: '#0a0a0a',
         padding: 'clamp(60px, 10vw, 100px) 24px',
