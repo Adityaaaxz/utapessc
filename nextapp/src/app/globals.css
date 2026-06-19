@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* ── CSS CUSTOM PROPERTIES ── */
+:root {
+  --white: #ffffff;
+  --orange: #FF6B00;
+  --gray: #888888;
+  --black: #000000;
+}
+
 /* ── MARQUEE ── */
 @keyframes marquee-scroll {
   0%   { transform: translateX(0); }
@@ -36,7 +44,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.15; /* Adjust opacity for the watermark effect */
+  opacity: 0.15;
   pointer-events: none;
   z-index: 0;
 }
@@ -48,6 +56,22 @@
   to   { content: "4.9"; }
 }
 
+/* ── PRODUCT CARD (dark card base) ── */
+.product-card {
+  background: linear-gradient(145deg, #111 0%, #1a1a1a 100%);
+  border: 2px solid #FF6B00;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  color: #ffffff;
+}
+.product-card p,
+.product-card span,
+.product-card div {
+  color: inherit;
+}
+
 /* ── CARD HOVER GLOW ── */
 .product-card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -55,6 +79,68 @@
 .product-card-hover:hover {
   transform: scale(1.04);
   box-shadow: 0 0 30px rgba(255, 107, 0, 0.4), 0 0 60px rgba(255, 107, 0, 0.1);
+}
+
+/* ── BUTTONS ── */
+.btn-orange {
+  background: #FF6B00;
+  color: #000;
+  font-family: var(--font-bebas), sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 900;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-orange:hover {
+  background: #e55f00;
+  transform: translateY(-1px);
+}
+.btn-outline {
+  background: transparent;
+  color: #000;
+  font-family: var(--font-bebas), sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  padding: 12px 28px;
+  border: 2px solid #000;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 900;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+.btn-outline:hover {
+  background: #000;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* ── FLIP CARD ── */
+.flip-card-wrapper {
+  perspective: 1000px;
+  cursor: pointer;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.flip-card-wrapper.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
 }
 
 /* ── SCROLLBAR ── */
@@ -66,7 +152,13 @@
 @media (max-width: 768px) {
   .desktop-nav { display: none !important; }
   .mobile-menu-btn { display: flex !important; }
+  .search-label { display: none !important; }
 }
 @media (min-width: 769px) {
   .mobile-menu-btn { display: none !important; }
+}
+
+/* ── SEARCH LABEL (hide on small screens) ── */
+@media (max-width: 480px) {
+  .search-label { display: none !important; }
 }
