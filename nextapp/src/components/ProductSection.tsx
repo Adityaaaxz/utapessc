@@ -19,7 +19,6 @@ export default function ProductSection() {
   return (
     <section
       id="product"
-      className="graffiti-bg"
       style={{
         position: 'relative',
         background: '#fff',

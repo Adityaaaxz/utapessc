@@ -27,24 +27,11 @@ export default function HeroSection() {
         paddingBottom: '48px',
         paddingLeft: 'clamp(20px, 4vw, 60px)',
         paddingRight: 'clamp(20px, 4vw, 60px)',
-        backgroundColor: '#ffffff',
-        overflow: 'hidden',
+        backgroundColor: 'transparent',
+        zIndex: 1,
       }}
     >
-      {/* ── BACKGROUND: Graffiti / Sketch texture ── */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: 'url("/assets/landing-asset/hero-asset/hero-product-background.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          opacity: 0.85,
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-      />
+      {/* Background now provided by parent wrapper in page.tsx */}
 
       {/* ── MAIN CONTENT ── */}
       <div
