@@ -74,7 +74,7 @@ export default function HeroSection() {
                 width={210}
                 height={150}
                 loading="eager"
-                style={{ objectFit: 'contain', width: 'clamp(160px, 22vw, 260px)', height: 'auto', display: 'block' }}
+                style={{ objectFit: 'contain', width: 'clamp(220px, 22vw, 260px)', height: 'auto', display: 'block' }}
               />
             </motion.div>
 
@@ -83,7 +83,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: 'backOut', delay: 0.1 }}
-              style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '-100px', zIndex: 2 }}
+              style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: 'clamp(-80px, -8vw, -100px)', zIndex: 2 }}
             >
               <Image
                 src="/assets/landing-asset/hero-asset/hero-logo.png"
