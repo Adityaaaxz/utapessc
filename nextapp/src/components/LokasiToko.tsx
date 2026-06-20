@@ -251,65 +251,6 @@ export default function LokasiToko() {
         </div>
       </motion.div>
 
-      {/* ── CTA Strip ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-        style={{
-          background: '#FF6B00',
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 clamp(16px, 4vw, 48px)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '16px',
-          paddingTop: '20px',
-          paddingBottom: '20px',
-        }}>
-          <p style={{
-            fontFamily: 'var(--font-inter), sans-serif',
-            fontWeight: 800,
-            fontSize: 'clamp(0.95rem, 2vw, 1.2rem)',
-            letterSpacing: '0.04em',
-            color: '#000',
-            margin: 0,
-          }}>
-            FOLLOW KAMI DI INSTAGRAM UNTUK UPDATE TERBARU
-          </p>
-          <motion.a
-            href="https://instagram.com/utapessc"
-            target="_blank"
-            rel="noreferrer"
-            whileHover={{ scale: 1.05, backgroundColor: '#000' }}
-            whileTap={{ scale: 0.97 }}
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              background: '#000',
-              color: '#FF6B00',
-              fontFamily: 'var(--font-inter), sans-serif',
-              fontWeight: 800,
-              fontSize: '0.95rem', letterSpacing: '0.08em',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              transition: 'background 0.2s, color 0.2s',
-              flexShrink: 0,
-            }}
-          >
-            <InstagramIcon size={18} />
-            @UTAPESSC ↗
-          </motion.a>
-        </div>
-      </motion.div>
     </section>
   )
 }
