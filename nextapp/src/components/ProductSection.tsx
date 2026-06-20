@@ -23,25 +23,25 @@ export default function ProductSection() {
       style={{
         position: 'relative',
         background: '#fff',
-        padding: 'clamp(100px, 15vw, 140px) 24px clamp(60px, 10vw, 100px)',
+        padding: 'clamp(80px, 12vw, 120px) clamp(16px, 4vw, 24px) clamp(60px, 10vw, 100px)',
         overflow: 'hidden',
       }}
     >
-      {/* Big "KINGSTAR" watermark */}
+      {/* Watermark */}
       <div
         aria-hidden
         style={{
           position: 'absolute',
-          bottom: '8%',
+          bottom: '4%',
           left: '-2%',
           fontFamily: 'var(--font-bebas), sans-serif',
-          fontSize: 'clamp(80px, 14vw, 180px)',
+          fontSize: 'clamp(70px, 12vw, 180px)',
           color: 'rgba(0,0,0,0.04)',
           letterSpacing: '0.02em',
           pointerEvents: 'none',
           userSelect: 'none',
           lineHeight: 1,
-          transform: 'rotate(-5deg)',
+          transform: 'rotate(-4deg)',
         }}
       >
         KING★STAR
@@ -60,10 +60,10 @@ export default function ProductSection() {
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            flexWrap: 'wrap',
+            alignItems: 'flex-end',
+            marginBottom: '36px',
             gap: '16px',
-            marginBottom: '32px',
+            flexWrap: 'wrap',
           }}
         >
           <motion.div
@@ -72,31 +72,39 @@ export default function ProductSection() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
           >
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), sans-serif',
-                fontSize: '0.75rem',
-                letterSpacing: '0.2em',
-                color: '#888',
-                textTransform: 'uppercase',
-                margin: '0 0 6px',
-              }}
-            >
-              PRODUCT
-            </p>
             <h2
               style={{
                 fontFamily: 'var(--font-bebas), sans-serif',
-                fontSize: 'clamp(40px, 8vw, 80px)',
+                fontSize: 'clamp(42px, 9vw, 88px)',
                 color: '#000',
-                lineHeight: 1,
+                lineHeight: 0.95,
                 margin: 0,
+                letterSpacing: '0.02em',
               }}
             >
               THE LATEST
               <br />
               <span style={{ color: '#FF6B00' }}>DROP</span>
             </h2>
+            {/* Flip hint — Bebas font, inline with heading */}
+            <div
+              style={{
+                marginTop: '14px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: 'rgba(255,107,0,0.08)',
+                border: '1px solid rgba(255,107,0,0.22)',
+                borderRadius: '999px',
+                padding: '5px 14px',
+                color: '#FF6B00',
+                fontFamily: 'var(--font-bebas), sans-serif',
+                fontSize: '0.82rem',
+                letterSpacing: '0.12em',
+              }}
+            >
+              ↺ KLIK KARTU UNTUK DETAIL & HARGA
+            </div>
           </motion.div>
 
           {/* Skull mascot */}
@@ -117,99 +125,84 @@ export default function ProductSection() {
                 height={80}
                 style={{
                   objectFit: 'contain',
-                  filter: 'drop-shadow(0 0 10px rgba(255,107,0,0.4))',
+                  filter: 'drop-shadow(0 0 12px rgba(255,107,0,0.45))',
                 }}
               />
             </motion.div>
           </motion.div>
         </div>
 
-        {/* NEW ARRIVAL heading */}
-        <motion.h3
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          style={{
-            fontFamily: 'var(--font-bebas), sans-serif',
-            fontSize: 'clamp(26px, 5vw, 44px)',
-            textAlign: 'center',
-            margin: '0 0 12px',
-            color: '#000',
-          }}
-        >
-          NEW <span style={{ color: '#FF6B00' }}>ARRIVAL!</span>
-        </motion.h3>
-
-        {/* Flip hint banner */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          style={{
-            textAlign: 'center',
-            marginBottom: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '8px',
-            color: '#888',
-            fontFamily: 'var(--font-inter), sans-serif',
-            fontSize: '0.78rem',
-            letterSpacing: '0.08em',
-          }}
-        >
-          <span style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            background: 'rgba(255,107,0,0.08)',
-            border: '1px solid rgba(255,107,0,0.2)',
-            borderRadius: '999px',
-            padding: '5px 14px',
-            color: '#FF6B00',
-          }}>
-            ↺ Klik kartu untuk melihat detail & harga
-          </span>
-        </motion.div>
-
-        {/* Filter pills — ABOVE grid */}
+        {/* Filter pills — scrollable on mobile */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
+          className="filter-scroll-wrap"
           style={{
-            display: 'flex',
-            gap: '10px',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            marginBottom: '36px',
+            overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch' as React.CSSProperties['WebkitOverflowScrolling'],
+            marginBottom: '40px',
           }}
         >
-          {FILTERS.map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              style={{
-                fontFamily: 'var(--font-bebas), sans-serif',
-                fontSize: '0.88rem',
-                letterSpacing: '0.12em',
-                padding: '7px 20px',
-                borderRadius: '999px',
-                border: `1.5px solid ${filter === f ? '#FF6B00' : '#ccc'}`,
-                background: filter === f ? '#FF6B00' : 'transparent',
-                color: filter === f ? '#fff' : '#555',
-                cursor: 'pointer',
-                fontWeight: filter === f ? 700 : 400,
-                transition: 'all 0.2s',
-              }}
-            >
-              {f}
-            </button>
-          ))}
+          <div
+            style={{
+              display: 'flex',
+              gap: '8px',
+              padding: '6px',
+              background: 'rgba(0,0,0,0.04)',
+              borderRadius: '999px',
+              border: '1px solid rgba(0,0,0,0.07)',
+              width: 'fit-content',
+              margin: '0 auto',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {FILTERS.map((f) => (
+              <motion.button
+                key={f}
+                onClick={() => setFilter(f)}
+                whileHover={{ scale: filter === f ? 1 : 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                animate={{
+                  background: filter === f ? '#000' : 'transparent',
+                  color: filter === f ? '#fff' : '#555',
+                  boxShadow: filter === f ? '0 4px 16px rgba(0,0,0,0.25)' : 'none',
+                }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  fontFamily: 'var(--font-bebas), sans-serif',
+                  fontSize: 'clamp(0.82rem, 1.4vw, 1rem)',
+                  letterSpacing: '0.14em',
+                  padding: '8px 20px',
+                  borderRadius: '999px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  flexShrink: 0,
+                }}
+              >
+                {filter === f && (
+                  <motion.span
+                    layoutId="filter-dot"
+                    style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      background: '#FF6B00',
+                      display: 'inline-block',
+                      flexShrink: 0,
+                    }}
+                  />
+                )}
+                {f}
+              </motion.button>
+            ))}
+          </div>
         </motion.div>
 
-        {/* Product Grid — with flip cards */}
+        {/* Product Grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key={filter}
@@ -219,8 +212,8 @@ export default function ProductSection() {
             transition={{ duration: 0.35 }}
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px,100%), 1fr))',
-              gap: 'clamp(16px, 2.5vw, 28px)',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(300px, 100%), 1fr))',
+              gap: 'clamp(14px, 2.5vw, 28px)',
             }}
           >
             {displayed.map((p, i) => (
@@ -236,10 +229,12 @@ export default function ProductSection() {
               textAlign: 'center',
               padding: '60px 20px',
               color: '#aaa',
-              fontFamily: 'var(--font-inter), sans-serif',
+              fontFamily: 'var(--font-bebas), sans-serif',
+              fontSize: '1.2rem',
+              letterSpacing: '0.12em',
             }}
           >
-            Belum ada produk untuk kategori ini.
+            BELUM ADA PRODUK UNTUK KATEGORI INI.
           </div>
         )}
       </div>

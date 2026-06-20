@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Bebas_Neue, Inter } from 'next/font/google'
 import './globals.css'
+import { CartProvider } from '@/lib/cart'
+import CartDrawer from '@/components/CartDrawer'
 
 const bebasNeue = Bebas_Neue({
   weight: '400',
@@ -25,7 +27,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="id" className={`${bebasNeue.variable} ${inter.variable}`}>
       <body style={{ fontFamily: 'var(--font-inter), sans-serif', background: '#000', overflowX: 'hidden' }}>
-        {children}
+        <CartProvider>
+          {children}
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   )

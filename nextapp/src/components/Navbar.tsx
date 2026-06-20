@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { Search, ShoppingCart, X, MoreHorizontal } from 'lucide-react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
+import { useCart } from '@/lib/cart'
 
 const LINKS = [
   { label: 'Home',      href: '#home' },
@@ -72,6 +73,7 @@ export default function Navbar() {
   const { scrollY }    = useScroll()
   const isMobile       = useIsMobile()
   const [active, setActive] = useScrollSpy()
+  const { totalCount, openCart } = useCart()
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setIsScrolled((prev) => {
@@ -162,26 +164,41 @@ export default function Navbar() {
                 : '0 2px 12px rgba(0,0,0,0.04)',
             }}
             transition={{ duration: 0.3 }}
-            style={{ borderRadius: '999px', padding: '4px', display: 'flex', gap: '2px' }}
+            style={{ borderRadius: '999px', padding: '4px', display: 'flex', gap: '2px', position: 'relative' }}
           >
             {LINKS.map((l) => (
-              <Link key={l.label} href={l.href} style={{ textDecoration: 'none' }} onClick={(e) => handleLinkClick(e, l.href, l.label)}>
+              <Link key={l.label} href={l.href} style={{ textDecoration: 'none', position: 'relative' }} onClick={(e) => handleLinkClick(e, l.href, l.label)}>
+                {/* Sliding background pill */}
+                {active === l.label && (
+                  <motion.div
+                    layoutId="active-pill"
+                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: '#000',
+                      borderRadius: '999px',
+                      zIndex: 0,
+                    }}
+                  />
+                )}
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.95 }}
                   style={{
                     fontFamily: 'var(--font-inter), sans-serif',
                     fontWeight: 600,
                     fontSize: '0.85rem',
                     color: active === l.label ? '#fff' : '#333',
-                    background: active === l.label ? '#000' : 'transparent',
                     padding: '7px 20px',
                     borderRadius: '999px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    transition: 'background 0.25s, color 0.25s',
                     cursor: 'pointer',
+                    position: 'relative',
+                    zIndex: 1,
+                    transition: 'color 0.2s',
                   }}
                 >
                   {l.label}
@@ -295,17 +312,36 @@ export default function Navbar() {
             </motion.button>
           )}
 
-          {/* Cart */}
+          {/* Cart with badge */}
           <motion.button
             aria-label="Cart"
+            onClick={openCart}
             style={{
               background: 'none', border: 'none', cursor: 'pointer',
               color: '#111', display: 'flex', padding: '6px', borderRadius: '50%',
+              position: 'relative',
             }}
             whileHover={{ scale: 1.1, y: -1 }}
             whileTap={{ scale: 0.95 }}
           >
             <ShoppingCart size={isMobile ? 20 : 21} strokeWidth={2.2} />
+            {totalCount > 0 && (
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                style={{
+                  position: 'absolute', top: '0px', right: '0px',
+                  background: '#FF6B00', color: '#fff',
+                  borderRadius: '50%', width: '16px', height: '16px',
+                  fontSize: '0.6rem', fontWeight: 800,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontFamily: 'var(--font-inter), sans-serif',
+                  border: '1.5px solid #fff',
+                }}
+              >
+                {totalCount > 9 ? '9+' : totalCount}
+              </motion.span>
+            )}
           </motion.button>
 
           {/* Mobile 3-dot menu */}

@@ -115,16 +115,16 @@ export default function Hero({ onShopNow }: HeroProps) {
         <motion.div variants={itemVar} style={{ position: 'relative', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {/* Crown / Mahkota */}
           <motion.div
-            style={{ marginBottom: -10, zIndex: 2 }}
+            style={{ marginBottom: -14, zIndex: 2 }}
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           >
             <Image
               src="/assets/maskot/mahkota.png"
               alt="Crown"
-              width={120}
-              height={80}
-              style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 16px rgba(255,107,0,0.6))' }}
+              width={160}
+              height={108}
+              style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 22px rgba(255,107,0,0.75))' }}
               className="orange-glow"
             />
           </motion.div>
@@ -201,30 +201,30 @@ export default function Hero({ onShopNow }: HeroProps) {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 'clamp(16px, 3vw, 32px)',
+            gap: 'clamp(20px, 4vw, 44px)',
             flexWrap: 'wrap',
             justifyContent: 'center',
-            padding: '12px 24px',
-            background: 'rgba(255,255,255,0.04)',
-            borderRadius: 12,
-            border: '1px solid rgba(255,255,255,0.08)',
+            padding: 'clamp(14px, 2vw, 20px) clamp(20px, 4vw, 36px)',
+            background: 'rgba(255,255,255,0.05)',
+            borderRadius: 16,
+            border: '1px solid rgba(255,255,255,0.10)',
             marginTop: 8,
           }}
         >
           {brandLogos.map((logo) => (
             <motion.div
               key={logo.name}
-              whileHover={{ opacity: 1, filter: 'grayscale(0%) brightness(1)' }}
-              style={{ transition: 'filter 0.25s', opacity: 0.6, filter: 'grayscale(60%) brightness(0.5)' }}
+              whileHover={{ scale: 1.12, opacity: 1 }}
+              style={{ transition: 'opacity 0.25s', opacity: 0.65 }}
             >
               <Image
                 src={logo.src}
                 alt={logo.name}
-                width={52}
-                height={36}
+                width={76}
+                height={54}
                 style={{
                   objectFit: 'contain',
-                  filter: 'brightness(0) invert(0.7)',
+                  filter: 'brightness(0) invert(0.75)',
                   transition: 'filter 0.25s',
                 }}
               />

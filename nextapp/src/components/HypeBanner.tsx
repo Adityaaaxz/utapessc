@@ -1,8 +1,9 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { slideLeft, fadeIn } from '@/lib/animations'
+import { slideLeft } from '@/lib/animations'
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -94,26 +95,58 @@ export default function HypeBanner() {
             </div>
           </motion.div>
 
-          {/* Right: Mascot */}
+          {/* Right: Mascot Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.85, rotate: -4 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, type: 'spring' }}
+            transition={{ duration: 0.65, type: 'spring', stiffness: 180, damping: 18 }}
           >
             <motion.div
               animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ position: 'relative' }}
             >
+              {/* Card backing */}
               <div style={{
-                width: '120px', height: '120px',
-                borderRadius: '50%',
-                background: 'rgba(255,107,0,0.1)',
-                border: '2px solid rgba(255,107,0,0.3)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '60px',
+                width: '160px',
+                height: '160px',
+                borderRadius: '20px',
+                background: 'linear-gradient(145deg, #1a1a1a, #111)',
+                border: '2px solid rgba(255,107,0,0.35)',
+                boxShadow: '6px 6px 0 rgba(255,107,0,0.22), 0 20px 50px rgba(0,0,0,0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                position: 'relative',
               }}>
-                👟
+                {/* Orange corner accent */}
+                <div style={{
+                  position: 'absolute', top: 0, left: 0,
+                  width: '50%', height: '3px',
+                  background: 'linear-gradient(90deg, #FF6B00, transparent)',
+                }} />
+                <Image
+                  src="/assets/maskot/2.png"
+                  alt="Maskot UTAPES"
+                  width={130}
+                  height={130}
+                  style={{ objectFit: 'contain', filter: 'contrast(1.1) brightness(0.95)' }}
+                />
+              </div>
+              {/* Tag sticker */}
+              <div style={{
+                position: 'absolute',
+                bottom: '-12px', right: '-16px',
+                background: '#FF6B00', color: '#000',
+                fontFamily: 'var(--font-bebas), sans-serif',
+                fontSize: '0.7rem', letterSpacing: '0.18em',
+                padding: '4px 12px', borderRadius: '4px',
+                transform: 'rotate(3deg)',
+                boxShadow: '2px 2px 0 rgba(0,0,0,0.3)',
+              }}>
+                UTAPES
               </div>
             </motion.div>
           </motion.div>
