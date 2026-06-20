@@ -27,6 +27,8 @@ function useIsMobile(breakpoint = 768) {
 
 function useScrollSpy() {
   const [activeSection, setActiveSection] = useState('Home')
+  const isClickScroll = useRef(false)
+  const clickTimeout = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const sectionIds = ['home', 'product', 'about', 'testimoni', 'contact']
@@ -43,7 +45,7 @@ function useScrollSpy() {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting && !isClickScroll.current) {
               setActiveSection(labelMap[id])
             }
           })
@@ -61,7 +63,16 @@ function useScrollSpy() {
     return () => observers.forEach((obs) => obs.disconnect())
   }, [])
 
-  return [activeSection, setActiveSection] as const
+  const setActiveManual = (section: string) => {
+    setActiveSection(section)
+    isClickScroll.current = true
+    if (clickTimeout.current) clearTimeout(clickTimeout.current)
+    clickTimeout.current = setTimeout(() => {
+      isClickScroll.current = false
+    }, 1000)
+  }
+
+  return [activeSection, setActiveManual] as const
 }
 
 export default function Navbar() {
