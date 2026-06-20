@@ -97,7 +97,7 @@ export default function Hero({ onShopNow }: HeroProps) {
         <motion.div variants={itemVar}>
           <span
             style={{
-              fontFamily: 'var(--font-graffiti)',
+              fontFamily: 'var(--font-bebas)',
               fontSize: 'clamp(11px, 1.5vw, 14px)',
               letterSpacing: '0.3em',
               color: 'var(--white)',
@@ -132,7 +132,7 @@ export default function Hero({ onShopNow }: HeroProps) {
           {/* Big UTAPES heading */}
           <h1
             style={{
-              fontFamily: 'var(--font-graffiti)',
+              fontFamily: 'var(--font-bebas)',
               fontSize: 'clamp(72px, 18vw, 180px)',
               letterSpacing: '0.01em',
               lineHeight: 0.9,
@@ -157,7 +157,7 @@ export default function Hero({ onShopNow }: HeroProps) {
           <div style={{ flex: 1, maxWidth: 120, height: 2, background: 'linear-gradient(90deg, transparent, var(--white))' }} />
           <span
             style={{
-              fontFamily: 'var(--font-graffiti)',
+              fontFamily: 'var(--font-bebas)',
               fontSize: 'clamp(16px, 2.5vw, 24px)',
               letterSpacing: '0.3em',
               color: 'var(--white)',

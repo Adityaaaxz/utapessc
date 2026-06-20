@@ -128,7 +128,7 @@ export default function HypeBanner() {
                   background: 'linear-gradient(90deg, #FF6B00, transparent)',
                 }} />
                 <Image
-                  src="/assets/maskot/2.png"
+                  src="/assets/maskot/utapessc.png"
                   alt="Maskot UTAPES"
                   width={130}
                   height={130}
@@ -146,7 +146,7 @@ export default function HypeBanner() {
                 transform: 'rotate(3deg)',
                 boxShadow: '2px 2px 0 rgba(0,0,0,0.3)',
               }}>
-                UTAPES
+                UTAPESSC
               </div>
             </motion.div>
           </motion.div>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Bebas_Neue, Inter } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/lib/cart'
+import { SearchProvider } from '@/lib/search'
 import CartDrawer from '@/components/CartDrawer'
 
 const bebasNeue = Bebas_Neue({
@@ -23,14 +24,23 @@ export const metadata: Metadata = {
   keywords: 'sepatu thrift, second hand shoes, nike, adidas, vans, puma, salomon, utapes',
 }
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id" className={`${bebasNeue.variable} ${inter.variable}`}>
-      <body style={{ fontFamily: 'var(--font-inter), sans-serif', background: '#000', overflowX: 'hidden' }}>
-        <CartProvider>
-          {children}
-          <CartDrawer />
-        </CartProvider>
+      <body style={{ fontFamily: 'var(--font-inter), sans-serif', background: '#000', overflowX: 'clip' }}>
+        <SearchProvider>
+          <CartProvider>
+            {children}
+            <CartDrawer />
+          </CartProvider>
+        </SearchProvider>
       </body>
     </html>
   )

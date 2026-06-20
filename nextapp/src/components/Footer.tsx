@@ -2,7 +2,16 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { MessageCircle, Music2 } from 'lucide-react'
 import { fadeUp, staggerContainer } from '@/lib/animations'
+
+const InstagramIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+  </svg>
+)
 
 const NAV_LINKS = [
   { label: 'HOME',      href: '#home' },
@@ -21,9 +30,9 @@ const BRANDS = [
 ]
 
 const SOCIAL = [
-  { label: 'IG',  href: 'https://instagram.com/utapessc', emoji: '📸' },
-  { label: 'TT',  href: '#', emoji: '🎵' },
-  { label: 'WA',  href: '#', emoji: '💬' },
+  { label: 'IG',  href: 'https://instagram.com/utapessc', icon: <InstagramIcon size={18} /> },
+  { label: 'TT',  href: '#', icon: <Music2 size={18} /> },
+  { label: 'WA',  href: '#', icon: <MessageCircle size={18} /> },
 ]
 
 export default function Footer() {
@@ -49,12 +58,13 @@ export default function Footer() {
       <div aria-hidden style={{
         position: 'absolute', top: '50%', left: '50%',
         transform: 'translate(-50%, -48%) rotate(-5deg)',
-        fontFamily: 'var(--font-bebas), sans-serif',
+        fontFamily: 'var(--font-inter), sans-serif',
+        fontWeight: 900,
         fontSize: 'clamp(80px, 14vw, 200px)',
-        color: 'rgba(255,107,0,0.04)',
+        color: 'rgba(255,107,0,0.03)',
         pointerEvents: 'none', userSelect: 'none',
         whiteSpace: 'nowrap', lineHeight: 1,
-        letterSpacing: '0.04em',
+        letterSpacing: '-0.02em',
       }}>
         UTAPESSC
       </div>
@@ -76,19 +86,20 @@ export default function Footer() {
         >
           {/* Huge logo */}
           <p style={{
-            fontFamily: 'var(--font-bebas), sans-serif',
-            fontSize: 'clamp(52px, 10vw, 96px)',
-            color: '#fff', letterSpacing: '0.04em',
+            fontFamily: 'var(--font-inter), sans-serif',
+            fontWeight: 900,
+            fontSize: 'clamp(42px, 9vw, 84px)',
+            color: '#fff', letterSpacing: '-0.03em',
             lineHeight: 0.9, margin: 0,
           }}>
             <span style={{ color: '#FF6B00' }}>U</span>TAPES
-            <span style={{ color: '#FF6B00', fontSize: '0.4em', verticalAlign: 'super', marginLeft: '4px' }}>SC</span>
           </p>
 
           <p style={{
-            fontFamily: 'var(--font-bebas), sans-serif',
-            fontSize: '0.82rem', letterSpacing: '0.22em',
-            color: '#444', margin: 0,
+            fontFamily: 'var(--font-inter), sans-serif',
+            fontWeight: 700,
+            fontSize: '0.75rem', letterSpacing: '0.15em',
+            color: '#555', margin: 0,
           }}>
             ★ THRIFT SHOES STORE — CIANJUR ★
           </p>
@@ -104,21 +115,22 @@ export default function Footer() {
                 whileHover={{ scale: 1.08, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 style={{
-                  fontFamily: 'var(--font-bebas), sans-serif',
-                  fontSize: '0.88rem', letterSpacing: '0.14em',
-                  padding: '8px 18px',
-                  borderRadius: '4px',
+                  fontFamily: 'var(--font-inter), sans-serif',
+                  fontWeight: 800,
+                  fontSize: '0.8rem', letterSpacing: '0.08em',
+                  padding: '10px 20px',
+                  borderRadius: '12px',
                   background: 'rgba(255,107,0,0.08)',
                   border: '1.5px solid rgba(255,107,0,0.3)',
                   color: '#FF6B00',
                   textDecoration: 'none',
-                  display: 'flex', alignItems: 'center', gap: '6px',
+                  display: 'flex', alignItems: 'center', gap: '8px',
                   transition: 'background 0.2s',
                 }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,107,0,0.2)' }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,107,0,0.08)' }}
               >
-                <span>{s.emoji}</span> {s.label}
+                {s.icon} <span style={{ paddingTop: '2px' }}>{s.label}</span>
               </motion.a>
             ))}
           </div>
@@ -139,7 +151,7 @@ export default function Footer() {
           viewport={{ once: true, amount: 0.2 }}
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(180px, 100%), 1fr))',
             gap: '40px',
             marginBottom: '56px',
           }}
@@ -147,13 +159,14 @@ export default function Footer() {
           {/* Navigasi */}
           <motion.div variants={fadeUp}>
             <p style={{
-              fontFamily: 'var(--font-bebas), sans-serif',
-              fontSize: '0.78rem', letterSpacing: '0.22em',
+              fontFamily: 'var(--font-inter), sans-serif',
+              fontWeight: 800,
+              fontSize: '0.8rem', letterSpacing: '0.1em',
               color: '#FF6B00', margin: '0 0 20px',
             }}>
               NAVIGASI
             </p>
-            <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {NAV_LINKS.map((link) => (
                 <li key={link.label}>
                   <a
@@ -166,14 +179,15 @@ export default function Footer() {
                       }
                     }}
                     style={{
-                      fontFamily: 'var(--font-bebas), sans-serif',
-                      fontSize: '1.15rem', letterSpacing: '0.1em',
-                      color: '#555', textDecoration: 'none',
+                      fontFamily: 'var(--font-inter), sans-serif',
+                      fontWeight: 600,
+                      fontSize: '0.95rem', letterSpacing: '0.04em',
+                      color: '#666', textDecoration: 'none',
                       transition: 'color 0.2s',
                       display: 'inline-flex', alignItems: 'center', gap: '8px',
                     }}
                     onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#fff' }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = '#555' }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = '#666' }}
                   >
                     <span style={{ color: '#FF6B00', fontSize: '0.9rem' }}>→</span>
                     {link.label}
@@ -186,8 +200,9 @@ export default function Footer() {
           {/* Brand kami */}
           <motion.div variants={fadeUp}>
             <p style={{
-              fontFamily: 'var(--font-bebas), sans-serif',
-              fontSize: '0.78rem', letterSpacing: '0.22em',
+              fontFamily: 'var(--font-inter), sans-serif',
+              fontWeight: 800,
+              fontSize: '0.8rem', letterSpacing: '0.1em',
               color: '#FF6B00', margin: '0 0 20px',
             }}>
               BRAND KAMI
@@ -214,31 +229,34 @@ export default function Footer() {
           {/* Kontak */}
           <motion.div variants={fadeUp}>
             <p style={{
-              fontFamily: 'var(--font-bebas), sans-serif',
-              fontSize: '0.78rem', letterSpacing: '0.22em',
+              fontFamily: 'var(--font-inter), sans-serif',
+              fontWeight: 800,
+              fontSize: '0.8rem', letterSpacing: '0.1em',
               color: '#FF6B00', margin: '0 0 20px',
             }}>
               KONTAK
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {[
-                { label: 'ALAMAT',    value: 'Ciharashas, Kec. Cilaku, Kab. Cianjur' },
+                { label: 'ALAMAT',    value: 'Cianjur, Cibinong hilir, Jawa Barat' },
                 { label: 'TELEPON',   value: '+62 812-3456-7890' },
                 { label: 'EMAIL',     value: 'hello@utapes.sc' },
-                { label: 'INSTAGRAM', value: '@utapessc' },
+                { label: 'INSTAGRAM', value: '@utapes.sc' },
               ].map((c) => (
                 <div key={c.label}>
                   <p style={{
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: '0.65rem', letterSpacing: '0.2em',
-                    color: '#FF6B00', margin: '0 0 3px',
-                    opacity: 0.7,
+                    fontFamily: 'var(--font-inter), sans-serif',
+                    fontWeight: 700,
+                    fontSize: '0.65rem', letterSpacing: '0.1em',
+                    color: '#FF6B00', margin: '0 0 4px',
+                    opacity: 0.8,
                   }}>
                     {c.label}
                   </p>
                   <p style={{
                     fontFamily: 'var(--font-inter), sans-serif',
-                    fontSize: '0.84rem', color: '#777',
+                    fontWeight: 500,
+                    fontSize: '0.85rem', color: '#888',
                     margin: 0, lineHeight: 1.5,
                   }}>
                     {c.value}
@@ -251,27 +269,28 @@ export default function Footer() {
 
         {/* ── BOTTOM BAR ── */}
         <div style={{
-          borderTop: '1px solid #111',
-          padding: '20px 0 24px',
+          borderTop: '1px solid #1a1a1a',
+          padding: '24px 0 28px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'wrap',
-          gap: '8px',
+          gap: '12px',
         }}>
           <p style={{
-            fontFamily: 'var(--font-bebas), sans-serif',
-            fontSize: '0.72rem', letterSpacing: '0.16em',
-            color: '#2a2a2a', margin: 0,
+            fontFamily: 'var(--font-inter), sans-serif',
+            fontWeight: 600,
+            fontSize: '0.7rem', letterSpacing: '0.05em',
+            color: '#444', margin: 0,
           }}>
             © 2026 UTAPES.SC — ALL RIGHTS RESERVED
           </p>
           <p style={{
-            fontFamily: 'var(--font-bebas), sans-serif',
-            fontSize: '0.72rem', letterSpacing: '0.16em',
-            color: '#2a2a2a', margin: 0,
+            fontFamily: 'var(--font-inter), sans-serif',
+            fontWeight: 600,
+            fontSize: '0.7rem', letterSpacing: '0.05em',
+            color: '#444', margin: 0,
           }}>
-            MADE WITH ❤️ FOR SNEAKER CULTURE
           </p>
         </div>
       </div>

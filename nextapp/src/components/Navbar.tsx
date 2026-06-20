@@ -2,9 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { User, ShoppingCart, X, MoreHorizontal } from 'lucide-react'
+import { User, ShoppingCart, X, MoreHorizontal, Search } from 'lucide-react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import { useCart } from '@/lib/cart'
+import { useSearch } from '@/lib/search'
+import type { BrandFilter } from '@/lib/products'
 
 const LINKS = [
   { label: 'Home',      href: '#home' },
@@ -13,6 +15,8 @@ const LINKS = [
   { label: 'Testimoni', href: '#testimoni' },
   { label: 'Contact',   href: '#contact' },
 ]
+
+const BRANDS: BrandFilter[] = ['NIKE', 'ADIDAS', 'VANS', 'PUMA', 'SOLOMON']
 
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = useState(false)
@@ -28,7 +32,7 @@ function useIsMobile(breakpoint = 768) {
 function useScrollSpy() {
   const [activeSection, setActiveSection] = useState('Home')
   const isClickScroll = useRef(false)
-  const clickTimeout = useRef<NodeJS.Timeout | null>(null)
+  const clickTimeout  = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const sectionIds = ['home', 'product', 'about', 'testimoni', 'contact']
@@ -37,11 +41,9 @@ function useScrollSpy() {
     }
 
     const observers: IntersectionObserver[] = []
-
     sectionIds.forEach((id) => {
       const el = document.getElementById(id)
       if (!el) return
-
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -50,16 +52,11 @@ function useScrollSpy() {
             }
           })
         },
-        {
-          rootMargin: '-20% 0px -40% 0px', // trigger when section is in 20%-60% of viewport
-          threshold: 0,
-        }
+        { rootMargin: '-20% 0px -40% 0px', threshold: 0 }
       )
-
       observer.observe(el)
       observers.push(observer)
     })
-
     return () => observers.forEach((obs) => obs.disconnect())
   }, [])
 
@@ -67,21 +64,23 @@ function useScrollSpy() {
     setActiveSection(section)
     isClickScroll.current = true
     if (clickTimeout.current) clearTimeout(clickTimeout.current)
-    clickTimeout.current = setTimeout(() => {
-      isClickScroll.current = false
-    }, 1000)
+    clickTimeout.current = setTimeout(() => { isClickScroll.current = false }, 1000)
   }
 
   return [activeSection, setActiveManual] as const
 }
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled]       = useState(false)
+  const [isScrolled, setIsScrolled]         = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen]         = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
   const { scrollY }    = useScroll()
   const isMobile       = useIsMobile()
   const [active, setActive] = useScrollSpy()
   const { totalCount, openCart } = useCart()
+  const { query, setQuery, setActiveBrand } = useSearch()
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setIsScrolled((prev) => {
@@ -94,17 +93,42 @@ export default function Navbar() {
     if (!isMobile) setMobileMenuOpen(false)
   }, [isMobile])
 
+  /* focus input when search opens */
+  useEffect(() => {
+    if (searchOpen) {
+      setTimeout(() => inputRef.current?.focus(), 80)
+    }
+  }, [searchOpen])
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, label: string) => {
     e.preventDefault()
     setActive(label)
-    const targetId = href.substring(1)
-    const elem = document.getElementById(targetId)
-    if (elem) {
-      elem.scrollIntoView({ behavior: 'smooth' })
+    const elem = document.getElementById(href.substring(1))
+    if (elem) elem.scrollIntoView({ behavior: 'smooth' })
+    if (isMobile) setMobileMenuOpen(false)
+  }
+
+  const handleSearch = (value: string) => {
+    setQuery(value)
+
+    /* Auto-match brand */
+    const matched = BRANDS.find((b) => b.toLowerCase() === value.trim().toLowerCase())
+    if (matched) {
+      setActiveBrand(matched)
+    } else {
+      setActiveBrand('ALL')
     }
-    if (isMobile) {
-      setMobileMenuOpen(false)
+
+    /* Scroll to product section when user starts typing */
+    if (value.length === 1) {
+      document.getElementById('product')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
+  }
+
+  const clearSearch = () => {
+    setQuery('')
+    setActiveBrand('ALL')
+    setSearchOpen(false)
   }
 
   return (
@@ -131,6 +155,7 @@ export default function Navbar() {
             : 'clamp(8px,1.5vw,14px) clamp(24px,4vw,48px)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
+          gap: '12px',
         }}
       >
         {/* ── Logo ── */}
@@ -151,31 +176,86 @@ export default function Navbar() {
           </motion.span>
         </Link>
 
-        {/* ── Desktop Pill Nav ── */}
-        {!isMobile && (
+        {/* ── Animated Search Bar (expands inline) ── */}
+        <AnimatePresence>
+          {searchOpen && (
+            <motion.div
+              key="searchbar"
+              initial={{ opacity: 0, scaleX: 0.6, width: 0 }}
+              animate={{ opacity: 1, scaleX: 1, width: isMobile ? '100%' : '320px' }}
+              exit={{ opacity: 0, scaleX: 0.6, width: 0 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                flex: isMobile ? 1 : undefined,
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                background: 'rgba(0,0,0,0.06)',
+                borderRadius: '999px',
+                border: '1.5px solid rgba(0,0,0,0.12)',
+                overflow: 'hidden',
+                transformOrigin: 'left center',
+              }}
+            >
+              <Search
+                size={14}
+                color="#888"
+                style={{ position: 'absolute', left: '14px', flexShrink: 0, pointerEvents: 'none' }}
+              />
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder='Cari brand atau tipe... (e.g. "Nike")'
+                value={query}
+                onChange={(e) => handleSearch(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Escape') clearSearch() }}
+                style={{
+                  width: '100%',
+                  background: 'transparent',
+                  border: 'none',
+                  outline: 'none',
+                  padding: '10px 36px 10px 36px',
+                  fontFamily: 'var(--font-inter), sans-serif',
+                  fontSize: '0.85rem',
+                  color: '#111',
+                }}
+              />
+              {query && (
+                <button
+                  onClick={clearSearch}
+                  style={{
+                    position: 'absolute', right: '10px',
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', color: '#999',
+                    padding: '4px',
+                  }}
+                >
+                  <X size={13} />
+                </button>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Desktop Pill Nav (hide when search open on mobile) ── */}
+        {!isMobile && !searchOpen && (
           <motion.div
             animate={{
               backgroundColor: isScrolled ? 'rgba(240,240,240,0.9)' : 'rgba(239,239,239,1)',
-              boxShadow: isScrolled
-                ? '0 4px 20px rgba(0,0,0,0.06)'
-                : '0 2px 12px rgba(0,0,0,0.04)',
+              boxShadow: isScrolled ? '0 4px 20px rgba(0,0,0,0.06)' : '0 2px 12px rgba(0,0,0,0.04)',
             }}
             transition={{ duration: 0.3 }}
             style={{ borderRadius: '999px', padding: '4px', display: 'flex', gap: '2px', position: 'relative' }}
           >
             {LINKS.map((l) => (
               <Link key={l.label} href={l.href} style={{ textDecoration: 'none', position: 'relative' }} onClick={(e) => handleLinkClick(e, l.href, l.label)}>
-                {/* Sliding background pill */}
                 {active === l.label && (
                   <motion.div
                     layoutId="active-pill"
                     transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                     style={{
-                      position: 'absolute',
-                      inset: 0,
-                      background: '#000',
-                      borderRadius: '999px',
-                      zIndex: 0,
+                      position: 'absolute', inset: 0,
+                      background: '#000', borderRadius: '999px', zIndex: 0,
                     }}
                   />
                 )}
@@ -189,12 +269,9 @@ export default function Navbar() {
                     color: active === l.label ? '#fff' : '#333',
                     padding: '7px 20px',
                     borderRadius: '999px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
                     cursor: 'pointer',
-                    position: 'relative',
-                    zIndex: 1,
+                    position: 'relative', zIndex: 1,
                     transition: 'color 0.2s',
                   }}
                 >
@@ -206,14 +283,34 @@ export default function Navbar() {
         )}
 
         {/* ── Right icons ── */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: isMobile ? '6px' : '10px',
-          flexShrink: 0,
-        }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '4px' : '8px', flexShrink: 0 }}>
 
-          {/* Cart with badge */}
+          {/* Search toggle */}
+          <motion.button
+            aria-label="Search"
+            onClick={() => {
+              if (searchOpen) { clearSearch() } else { setSearchOpen(true) }
+            }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            style={{
+              background: searchOpen ? '#000' : 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: searchOpen ? '#fff' : '#111',
+              display: 'flex',
+              padding: '7px',
+              borderRadius: '50%',
+              transition: 'background 0.2s, color 0.2s',
+            }}
+          >
+            {searchOpen
+              ? <X size={isMobile ? 18 : 19} strokeWidth={2.2} />
+              : <Search size={isMobile ? 18 : 19} strokeWidth={2.2} />
+            }
+          </motion.button>
+
+          {/* Cart */}
           <motion.button
             aria-label="Cart"
             onClick={openCart}
@@ -245,43 +342,32 @@ export default function Navbar() {
             )}
           </motion.button>
 
-          {/* User Profile Button */}
+          {/* User */}
           <motion.button
             aria-label="User Profile"
             onClick={() => console.log('User profile clicked')}
             style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              color: '#111',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '6px',
-              borderRadius: '50%',
+              background: 'none', border: 'none', cursor: 'pointer', color: '#111',
+              display: 'flex', alignItems: 'center', padding: '6px', borderRadius: '50%',
             }}
             whileHover={{ scale: 1.15, backgroundColor: 'rgba(0,0,0,0.06)' }}
             whileTap={{ scale: 0.9 }}
           >
-            <User size={isMobile ? 21 : 21} strokeWidth={2.2} />
+            <User size={21} strokeWidth={2.2} />
           </motion.button>
 
-          {/* Mobile 3-dot menu */}
+          {/* Mobile 3-dot */}
           {isMobile && (
             <motion.button
               aria-label="Menu"
               onClick={() => setMobileMenuOpen((p) => !p)}
               style={{
                 background: mobileMenuOpen ? '#000' : 'rgba(0,0,0,0.06)',
-                border: 'none',
-                borderRadius: '50%',
-                cursor: 'pointer',
+                border: 'none', borderRadius: '50%', cursor: 'pointer',
                 color: mobileMenuOpen ? '#fff' : '#111',
-                display: 'flex',
-                padding: '6px',
-                width: '36px',
-                height: '36px',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: 'flex', padding: '6px',
+                width: '36px', height: '36px',
+                alignItems: 'center', justifyContent: 'center',
                 transition: 'background 0.2s, color 0.2s',
               }}
               whileHover={{ scale: 1.1 }}
@@ -293,17 +379,12 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-
-
-      {/* ── Mobile dropdown menu ── */}
+      {/* ── Mobile dropdown ── */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
               style={{ position: 'fixed', inset: 0, zIndex: 997 }}
             />
@@ -313,16 +394,12 @@ export default function Navbar() {
               exit={{ opacity: 0, y: -12, scale: 0.96 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
               style={{
-                position: 'fixed',
-                top: '66px',
-                right: '16px',
-                zIndex: 998,
+                position: 'fixed', top: '66px', right: '16px', zIndex: 998,
                 background: 'rgba(255,255,255,0.98)',
                 borderRadius: '16px',
                 boxShadow: '0 12px 40px rgba(0,0,0,0.18)',
                 border: '1px solid rgba(0,0,0,0.08)',
-                overflow: 'hidden',
-                minWidth: '190px',
+                overflow: 'hidden', minWidth: '190px',
                 backdropFilter: 'blur(20px)',
               }}
             >
@@ -346,19 +423,12 @@ export default function Navbar() {
                       color: active === l.label ? '#fff' : '#111',
                       background: active === l.label ? '#000' : 'transparent',
                       borderBottom: idx < LINKS.length - 1 ? '1px solid rgba(0,0,0,0.06)' : 'none',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px',
+                      display: 'flex', alignItems: 'center', gap: '10px',
                       cursor: 'pointer',
                     }}
                   >
                     {active === l.label && (
-                      <span style={{
-                        width: 6, height: 6,
-                        borderRadius: '50%',
-                        background: '#FF6B00',
-                        flexShrink: 0,
-                      }} />
+                      <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#FF6B00', flexShrink: 0 }} />
                     )}
                     {l.label}
                   </motion.div>

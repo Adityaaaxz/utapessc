@@ -89,7 +89,7 @@ export default function IntroAnimation({ onComplete }: { onComplete: () => void 
           {/* Graffiti tag subtitle */}
           <motion.p
             style={{
-              fontFamily: "'Permanent Marker', cursive",
+              fontFamily: "var(--font-bebas), sans-serif",
               fontSize: 'clamp(14px, 2vw, 20px)',
               color: '#FF6B00',
               letterSpacing: '0.3em',
@@ -150,7 +150,7 @@ export default function IntroAnimation({ onComplete }: { onComplete: () => void 
             <div style={{ width: 60, height: 2, background: 'linear-gradient(90deg, transparent, #FF6B00)' }} />
             <span
               style={{
-                fontFamily: 'var(--font-graffiti)',
+                fontFamily: 'var(--font-bebas)',
                 fontSize: 'clamp(14px, 2vw, 20px)',
                 letterSpacing: '0.25em',
                 color: '#888',
@@ -167,7 +167,7 @@ export default function IntroAnimation({ onComplete }: { onComplete: () => void 
               key={pos}
               style={{
                 position: 'absolute',
-                fontFamily: "'Permanent Marker', cursive",
+                fontFamily: "var(--font-bebas), sans-serif",
                 fontSize: 'clamp(28px, 5vw, 60px)',
                 color: 'rgba(255,107,0,0.08)',
                 ...(pos === 'TL' ? { top: 20, left: 30, transform: 'rotate(-10deg)' } : {}),

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingCart, RotateCcw, CheckCircle } from 'lucide-react'
+import { ShoppingCart, ArrowRight, CheckCircle, Tag, RotateCcw } from 'lucide-react'
 import { type Product } from '@/lib/products'
 import { useCart } from '@/lib/cart'
 
@@ -12,27 +12,37 @@ interface ProductCardProps {
   index: number
 }
 
+const ORANGE = '#FF6B00'
+
+function typeStyle(type: string) {
+  const t = type.toLowerCase()
+  if (t.includes('trail') || t.includes('run'))
+    return { bg: '#000', color: '#fff', border: '#111' }
+  if (t.includes('skate'))
+    return { bg: '#000', color: '#fff', border: '#111' }
+  return { bg: ORANGE, color: '#fff', border: ORANGE }
+}
+
 export default function ProductCard({ product, index }: ProductCardProps) {
   const [isFlipped, setIsFlipped] = useState(false)
-  const [added, setAdded] = useState(false)
-  const { addItem } = useCart()
+  const [added, setAdded]         = useState(false)
+  const { addItem }               = useCart()
+  const ts                        = typeStyle(product.type)
 
   const handleBuyNow = (e: React.MouseEvent) => {
     e.stopPropagation()
     addItem(product)
     setAdded(true)
-    setTimeout(() => setAdded(false), 1800)
+    setTimeout(() => setAdded(false), 2000)
   }
-
-  const accent = '#FF6B00'
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 60, scale: 0.92 }}
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '0px' }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
-      style={{ perspective: '1200px', cursor: 'pointer' }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: index * 0.07 }}
+      style={{ perspective: '1400px', cursor: 'pointer' }}
       onClick={() => setIsFlipped((p) => !p)}
     >
       <motion.div
@@ -41,110 +51,102 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         style={{ position: 'relative', width: '100%', transformStyle: 'preserve-3d' }}
       >
 
-        {/* ══════════════ FRONT FACE ══════════════ */}
-        <div
+        {/* ══════════════ FRONT (STREETWEAR VIBE BUT WITH INTER FONT) ══════════════ */}
+        <motion.div
+          whileHover={{ y: -6, boxShadow: `0 32px 64px rgba(0,0,0,0.18), 8px 8px 0 #000` }}
+          transition={{ type: 'spring', stiffness: 280, damping: 22 }}
           style={{
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
-            background: 'linear-gradient(160deg, #161616 0%, #0d0d0d 100%)',
-            borderRadius: '20px',
+            background: '#fff',
+            borderRadius: '16px',
             overflow: 'hidden',
-            position: 'relative',
-            border: '1.5px solid rgba(255,107,0,0.2)',
-            boxShadow: '0 16px 56px rgba(0,0,0,0.65)',
+            boxShadow: '4px 4px 0 #000',
+            border: '2px solid #000',
           }}
         >
-          {/* Top accent line */}
-          <div
-            style={{
-              position: 'absolute', top: 0, left: 0, right: 0,
-              height: '2px',
-              background: 'linear-gradient(90deg, transparent, #FF6B00 50%, transparent)',
-              zIndex: 5,
-            }}
-          />
-
-          {/* NEW DROP badge */}
-          {product.isNew && (
-            <div
-              style={{
-                position: 'absolute', top: 16, left: 16, zIndex: 10,
-                background: accent,
-                color: '#000',
-                fontFamily: 'var(--font-bebas), sans-serif',
-                fontSize: '0.7rem', letterSpacing: '0.18em',
-                padding: '3px 12px', borderRadius: '4px',
-                boxShadow: `0 2px 14px ${accent}99`,
-              }}
-            >
-              NEW DROP
-            </div>
-          )}
-
-          {/* Spinning flip icon */}
-          <motion.div
-            animate={{ rotate: [0, 180, 360] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-            style={{
-              position: 'absolute', top: 16, right: 16, zIndex: 10,
-              width: '28px', height: '28px', borderRadius: '50%',
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.10)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}
-          >
-            <RotateCcw size={12} color="rgba(255,255,255,0.4)" />
-          </motion.div>
-
-          {/* ── IMAGE AREA ── */}
+          {/* ── Image area ── */}
           <div
             style={{
               position: 'relative',
-              background: 'linear-gradient(180deg, #1c1c1c 0%, #111 100%)',
-              padding: 'clamp(32px, 6vw, 52px) clamp(20px, 4vw, 38px) clamp(20px, 3vw, 32px)',
-              overflow: 'hidden',
-              minHeight: 'clamp(180px, 30vw, 270px)',
+              background: '#f4f4f4',
+              borderBottom: '2px solid #000',
+              padding: 'clamp(32px, 5vw, 48px) clamp(24px, 4vw, 40px) clamp(24px, 4vw, 36px)',
+              minHeight: 'clamp(200px, 28vw, 270px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              overflow: 'hidden',
             }}
           >
-            {/* Radial spotlight glow */}
-            <div
-              style={{
-                position: 'absolute', inset: 0,
-                background: `radial-gradient(ellipse at 50% 85%, ${accent}28 0%, transparent 65%)`,
-                pointerEvents: 'none',
-              }}
-            />
-            {/* Second subtle glow for depth */}
-            <div
-              style={{
-                position: 'absolute', inset: 0,
-                background: 'radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 60%)',
-                pointerEvents: 'none',
-              }}
-            />
+            {/* Massive Watermark */}
+            <div aria-hidden style={{
+              position: 'absolute',
+              top: '45%',
+              left: '50%',
+              transform: 'translate(-50%, -50%) rotate(-10deg)',
+              fontFamily: 'var(--font-inter), sans-serif',
+              fontWeight: 900,
+              fontSize: 'clamp(50px, 12vw, 110px)',
+              color: 'rgba(0,0,0,0.04)',
+              whiteSpace: 'nowrap',
+              pointerEvents: 'none',
+              letterSpacing: '-0.04em',
+              zIndex: 1,
+            }}>
+              {product.brand.toUpperCase()}
+            </div>
 
-            {/* Brand watermark */}
-            <span
-              style={{
-                position: 'absolute',
-                bottom: -6, right: 6,
-                fontFamily: 'var(--font-bebas), sans-serif',
-                fontSize: 'clamp(44px, 8vw, 80px)', letterSpacing: '0.04em',
-                color: 'rgba(255,255,255,0.04)',
-                lineHeight: 1, pointerEvents: 'none',
-                userSelect: 'none',
-              }}
-            >
-              {product.brand}
-            </span>
+            {/* Subtle radial under shoe */}
+            <div style={{
+              position: 'absolute', bottom: '-5%', left: '50%', transform: 'translateX(-50%)',
+              width: '70%', height: '40%',
+              background: 'radial-gradient(ellipse, rgba(0,0,0,0.12) 0%, transparent 70%)',
+              filter: 'blur(8px)',
+              pointerEvents: 'none',
+              zIndex: 1,
+            }} />
 
-            {/* Shoe image with hover effect */}
+            {/* NEW DROP Tape style */}
+            {product.isNew && (
+              <div style={{
+                position: 'absolute', top: 16, left: -8, zIndex: 5,
+                background: ORANGE,
+                color: '#000',
+                fontFamily: 'var(--font-inter), sans-serif',
+                fontWeight: 800,
+                fontSize: '0.65rem', letterSpacing: '0.14em',
+                padding: '4px 14px 4px 20px',
+                transform: 'rotate(-4deg)',
+                border: '1.5px solid #000',
+                boxShadow: '2px 2px 0 #000',
+              }}>
+                ★ NEW DROP
+              </div>
+            )}
+
+            {/* Type badge sticker */}
+            <div style={{
+              position: 'absolute', bottom: 12, right: 12, zIndex: 5,
+              background: ts.bg,
+              border: `1.5px solid ${ts.border}`,
+              color: ts.color,
+              fontFamily: 'var(--font-inter), sans-serif',
+              fontWeight: 800,
+              fontSize: '0.65rem', letterSpacing: '0.1em',
+              padding: '4px 10px',
+              borderRadius: '4px',
+              display: 'flex', alignItems: 'center', gap: '4px',
+              boxShadow: '2px 2px 0 rgba(0,0,0,1)',
+            }}>
+              <Tag size={10} />
+              {product.type}
+            </div>
+
+            {/* Shoe image */}
             <motion.div
-              whileHover={{ scale: 1.09, rotate: -4, y: -8 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 16 }}
+              whileHover={{ scale: 1.1, rotate: -4, y: -4 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               style={{ width: '100%', aspectRatio: '4/3', position: 'relative', zIndex: 2 }}
             >
               <Image
@@ -154,259 +156,269 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                 sizes="(max-width: 640px) 90vw, (max-width: 1024px) 46vw, 30vw"
                 style={{
                   objectFit: 'contain',
-                  filter: 'drop-shadow(0 18px 30px rgba(0,0,0,0.75))',
+                  filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.3))',
                 }}
               />
             </motion.div>
           </div>
 
-          {/* ── CARD BODY ── */}
-          <div style={{ padding: 'clamp(14px, 2.5vw, 20px)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
-              <div style={{ minWidth: 0, flex: 1 }}>
-                {/* Brand — Bebas, big */}
-                <p
-                  style={{
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: 'clamp(1.25rem, 2.5vw, 1.55rem)',
-                    letterSpacing: '0.06em',
-                    color: '#fff',
-                    lineHeight: 1,
-                    margin: 0,
-                  }}
-                >
-                  {product.brand}
-                </p>
-                {/* Model name — Inter, small, muted (only place Inter is used) */}
-                <p
-                  style={{
-                    fontFamily: 'var(--font-inter), sans-serif',
-                    fontSize: '0.7rem',
-                    color: 'rgba(255,255,255,0.32)',
-                    margin: '4px 0 0',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {product.name}
-                </p>
-              </div>
-
-              {/* Price badge — solid orange */}
-              <div
-                style={{
-                  background: accent,
-                  borderRadius: '8px',
-                  padding: '5px 12px',
-                  flexShrink: 0,
-                  boxShadow: `0 4px 14px ${accent}55`,
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)',
-                    color: '#000',
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  {product.price}
-                </span>
-              </div>
+          {/* ── Card body ── */}
+          <div style={{ padding: '20px 22px 22px', background: '#fff' }}>
+            {/* Brand + name */}
+            <div style={{ marginBottom: '16px' }}>
+              <p style={{
+                fontFamily: 'var(--font-inter), sans-serif',
+                fontWeight: 900,
+                fontSize: 'clamp(1.2rem, 2vw, 1.4rem)',
+                letterSpacing: '-0.02em',
+                color: '#000',
+                margin: 0,
+                lineHeight: 1,
+              }}>
+                {product.brand}
+              </p>
+              <p style={{
+                fontFamily: 'var(--font-inter), sans-serif',
+                fontWeight: 600,
+                fontSize: '0.8rem',
+                color: '#666',
+                margin: '6px 0 0',
+              }}>
+                {product.name}
+              </p>
             </div>
 
-            {/* Divider */}
-            <div
-              style={{
-                margin: '12px 0 10px',
-                height: '1px',
-                background: 'linear-gradient(90deg, rgba(255,107,0,0.35), transparent)',
-              }}
-            />
+            {/* Thick Separator */}
+            <div style={{
+              height: '3px',
+              background: '#000',
+              marginBottom: '16px',
+            }} />
 
-            {/* Flip hint — Bebas */}
-            <div
-              style={{
+            {/* Price + cta row */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+              <div>
+                <p style={{
+                  fontFamily: 'var(--font-inter), sans-serif',
+                  fontWeight: 800,
+                  fontSize: '0.65rem',
+                  color: '#888',
+                  margin: '0 0 4px',
+                  letterSpacing: '0.1em',
+                }}>
+                  PRICE
+                </p>
+                <p style={{
+                  fontFamily: 'var(--font-inter), sans-serif',
+                  fontWeight: 900,
+                  fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+                  color: ORANGE,
+                  margin: 0,
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1,
+                  textShadow: '1px 1px 0 #000',
+                }}>
+                  Rp {product.price}
+                </p>
+              </div>
+
+              <div style={{
                 display: 'flex', alignItems: 'center', gap: '6px',
-                color: 'rgba(255,255,255,0.18)',
-                fontFamily: 'var(--font-bebas), sans-serif',
-                fontSize: '0.68rem', letterSpacing: '0.14em',
-              }}
-            >
-              <RotateCcw size={9} />
-              KLIK UNTUK DETAIL
+                background: '#000',
+                color: '#FF6B00',
+                padding: '10px 18px',
+                border: '1.5px solid #000',
+                boxShadow: '2px 2px 0 #FF6B00',
+                fontFamily: 'var(--font-inter), sans-serif',
+                fontWeight: 800,
+                fontSize: '0.75rem',
+                letterSpacing: '0.08em',
+                cursor: 'pointer',
+              }}>
+                DETAIL <ArrowRight size={14} />
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* ══════════════ BACK FACE ══════════════ */}
+        {/* ══════════════ BACK ══════════════ */}
         <div
           style={{
             position: 'absolute', inset: 0,
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
-            background: 'linear-gradient(160deg, #0e0e0e 0%, #161616 100%)',
-            borderRadius: '20px',
-            border: `1.5px solid ${accent}55`,
-            boxShadow: `0 16px 56px rgba(0,0,0,0.65), 0 0 60px ${accent}18`,
+            background: '#111',
+            borderRadius: '16px',
+            border: `2px solid #000`,
+            boxShadow: `4px 4px 0 ${ORANGE}`,
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
           }}
         >
-          {/* Top glow */}
-          <div
-            style={{
-              height: '3px',
-              background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
-            }}
-          />
+          {/* Back graphic bg layer */}
+          <div aria-hidden style={{
+            position: 'absolute', inset: 0,
+            backgroundImage: 'url("/assets/background/hero-product-background.png")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.1,
+            mixBlendMode: 'luminosity',
+            pointerEvents: 'none',
+          }} />
 
-          <div style={{ padding: '18px 18px 0', flex: 1, display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            {/* Shoe thumbnail + brand header */}
-            <div
-              style={{
-                display: 'flex', alignItems: 'center', gap: '12px',
-                background: 'rgba(255,255,255,0.03)',
-                borderRadius: '14px', padding: '12px',
-                border: '1px solid rgba(255,255,255,0.06)',
-              }}
-            >
-              <div style={{ position: 'relative', width: '72px', height: '50px', flexShrink: 0 }}>
-                <Image
-                  src={product.image}
-                  alt={product.brand}
-                  fill
-                  sizes="72px"
-                  style={{ objectFit: 'contain', filter: `drop-shadow(0 4px 10px ${accent}66)` }}
-                />
-              </div>
-              <div>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: '1.4rem', color: accent, letterSpacing: '0.06em', margin: 0,
-                  }}
-                >
-                  {product.brand}
-                </p>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-inter), sans-serif',
-                    fontSize: '0.7rem', color: 'rgba(255,255,255,0.38)', margin: 0,
-                  }}
-                >
-                  {product.name}
-                </p>
-              </div>
+          {/* Header */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '14px',
+            padding: '18px 18px 16px',
+            borderBottom: '2px solid rgba(255,255,255,0.1)',
+            position: 'relative', zIndex: 2,
+          }}>
+            <div style={{
+              position: 'relative', width: '68px', height: '50px', flexShrink: 0,
+              background: '#000', border: '1px solid #333', borderRadius: '4px', overflow: 'hidden',
+            }}>
+              <Image
+                src={product.image} alt={product.brand}
+                fill sizes="68px"
+                style={{ objectFit: 'contain', padding: '6px', filter: `drop-shadow(0 2px 8px ${ORANGE}44)` }}
+              />
             </div>
-
-            {/* Info rows — all Bebas labels */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              {[
-                { label: 'HARGA', value: product.price, isPrice: true },
-                { label: 'KONDISI', value: 'Second / Thrift', isPrice: false },
-                { label: 'BRAND', value: product.brand, isPrice: false },
-                { label: 'KATEGORI', value: 'Sneakers', isPrice: false },
-              ].map((row, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    padding: '8px 12px',
-                    background: i % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'transparent',
-                    borderRadius: '8px',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-bebas), sans-serif',
-                      letterSpacing: '0.14em',
-                      color: 'rgba(255,255,255,0.28)',
-                      fontSize: '0.78rem',
-                    }}
-                  >
-                    {row.label}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: row.isPrice ? 'var(--font-bebas), sans-serif' : 'var(--font-inter), sans-serif',
-                      fontSize: row.isPrice ? '1.1rem' : '0.78rem',
-                      color: row.isPrice ? accent : '#bbb',
-                      fontWeight: row.isPrice ? 900 : 500,
-                      letterSpacing: row.isPrice ? '0.06em' : '0.01em',
-                    }}
-                  >
-                    {row.value}
-                  </span>
-                </div>
-              ))}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{
+                fontFamily: 'var(--font-inter), sans-serif',
+                fontWeight: 800,
+                fontSize: '1rem', color: '#fff',
+                margin: 0, letterSpacing: '0.02em',
+              }}>
+                {product.brand}
+              </p>
+              <p style={{
+                fontFamily: 'var(--font-inter), sans-serif',
+                fontWeight: 500,
+                fontSize: '0.72rem', color: '#aaa', margin: '3px 0 0',
+              }}>
+                {product.name}
+              </p>
             </div>
           </div>
 
-          {/* CTA area */}
-          <div style={{ padding: '14px 18px 18px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {/* Spec rows */}
+          <div style={{ flex: 1, padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: '10px', position: 'relative', zIndex: 2 }}>
+            {[
+              { label: 'TYPE',     value: product.type,      chip: true,  hl: false },
+              { label: 'BRAND',    value: product.brand,     chip: false, hl: false },
+              { label: 'KONDISI',  value: 'Second / Thrift', chip: false, hl: false },
+              { label: 'PRICE',    value: `Rp ${product.price}`, chip: false, hl: true },
+            ].map((row) => (
+              <div key={row.label} style={{
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                padding: '10px 14px',
+                background: '#000',
+                border: row.hl ? `1.5px solid ${ORANGE}` : '1px solid #333',
+                boxShadow: row.hl ? `2px 2px 0 ${ORANGE}` : 'none',
+              }}>
+                <span style={{
+                  fontFamily: 'var(--font-inter), sans-serif',
+                  fontWeight: 700,
+                  fontSize: '0.65rem', color: '#888', letterSpacing: '0.1em',
+                }}>
+                  {row.label}
+                </span>
+
+                {row.chip ? (
+                  <span style={{
+                    fontFamily: 'var(--font-inter), sans-serif',
+                    fontWeight: 800,
+                    fontSize: '0.65rem',
+                    letterSpacing: '0.1em',
+                    background: ts.bg, color: ts.color,
+                    padding: '3px 10px',
+                    border: `1px solid ${ts.color}`,
+                    display: 'flex', alignItems: 'center', gap: '4px',
+                    borderRadius: '4px',
+                  }}>
+                    <Tag size={10} />{row.value}
+                  </span>
+                ) : (
+                  <span style={{
+                    fontFamily: 'var(--font-inter), sans-serif',
+                    fontWeight: row.hl ? 900 : 600,
+                    fontSize: row.hl ? '1rem' : '0.8rem',
+                    color: row.hl ? ORANGE : '#ccc',
+                    letterSpacing: row.hl ? '-0.02em' : '0em',
+                  }}>
+                    {row.value}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div style={{ padding: '14px 18px 18px', display: 'flex', flexDirection: 'column', gap: '10px', position: 'relative', zIndex: 2 }}>
             <AnimatePresence mode="wait">
               {added ? (
                 <motion.div
                   key="added"
-                  initial={{ scale: 0.85, opacity: 0 }}
+                  initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.85, opacity: 0 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
                   style={{
                     width: '100%', padding: '14px',
-                    background: 'rgba(0,200,100,0.12)',
-                    border: '1.5px solid rgba(0,200,100,0.35)',
-                    borderRadius: '12px',
+                    background: '#000',
+                    border: '1.5px solid #34d399',
+                    boxShadow: '3px 3px 0 #34d399',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                    color: '#00c864',
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: '1rem', letterSpacing: '0.12em',
+                    color: '#34d399',
+                    fontFamily: 'var(--font-inter), sans-serif',
+                    fontWeight: 800,
+                    fontSize: '0.9rem', letterSpacing: '0.04em',
+                    borderRadius: '6px',
                   }}
                 >
-                  <CheckCircle size={16} />
-                  DITAMBAHKAN KE CART!
+                  <CheckCircle size={18} />
+                  DITAMBAHKAN!
                 </motion.div>
               ) : (
                 <motion.button
                   key="buy"
                   initial={{ scale: 0.95, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  whileHover={{ scale: 1.03 }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={handleBuyNow}
                   style={{
                     width: '100%',
-                    background: `linear-gradient(135deg, ${accent}, #cc5500)`,
+                    background: ORANGE,
                     color: '#000',
-                    border: 'none',
-                    borderRadius: '12px',
+                    border: '2px solid #000',
                     padding: '14px',
                     cursor: 'pointer',
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: '1.05rem',
-                    letterSpacing: '0.14em',
+                    fontFamily: 'var(--font-inter), sans-serif',
+                    fontWeight: 900,
+                    fontSize: '0.9rem', letterSpacing: '0.06em',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                    boxShadow: `0 4px 24px ${accent}55`,
+                    boxShadow: `4px 4px 0 #000`,
+                    borderRadius: '6px',
                   }}
                 >
-                  <ShoppingCart size={16} />
+                  <ShoppingCart size={18} />
                   TAMBAH KE CART
                 </motion.button>
               )}
             </AnimatePresence>
 
-            <div
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px',
-                color: 'rgba(255,255,255,0.16)',
-                fontFamily: 'var(--font-bebas), sans-serif',
-                fontSize: '0.68rem', letterSpacing: '0.12em',
-              }}
-            >
-              <RotateCcw size={9} />
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px',
+              color: '#666',
+              fontFamily: 'var(--font-inter), sans-serif',
+              fontWeight: 700,
+              fontSize: '0.65rem', letterSpacing: '0.1em',
+              marginTop: '6px'
+            }}>
+              <RotateCcw size={10} />
               KLIK UNTUK KEMBALI
             </div>
           </div>

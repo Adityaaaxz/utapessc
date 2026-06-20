@@ -96,7 +96,7 @@ export default function BrandMarquee() {
             {/* Brand Text */}
             <span
               style={{
-                fontFamily: 'var(--font-graffiti)',
+                fontFamily: 'var(--font-bebas)',
                 fontSize: 'clamp(20px, 3.5vw, 36px)',
                 letterSpacing: '0.1em',
                 color: 'var(--white)',

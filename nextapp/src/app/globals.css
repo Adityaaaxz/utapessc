@@ -6,6 +6,13 @@
   --orange: #FF6B00;
   --gray: #888888;
   --black: #000000;
+  /* Alias so any stray --font-graffiti refs also resolve to Bebas */
+  --font-graffiti: var(--font-bebas);
+}
+
+/* ── CONSISTENT HEADING FONT ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-bebas), sans-serif;
 }
 
 /* ── MARQUEE ── */

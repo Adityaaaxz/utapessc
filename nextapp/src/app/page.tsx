@@ -14,7 +14,7 @@ export default function Home() {
     <>
       <Navbar />
       {/* Hero + Ticker share the same background image */}
-      <div style={{ position: 'relative', backgroundColor: '#fff', paddingBottom: '80px', overflowX: 'hidden' }}>
+      <div style={{ position: 'relative', backgroundColor: '#fff', paddingBottom: '80px', overflowX: 'clip' }}>
         {/* Shared bg image — spans hero section AND ticker */}
         <div
           style={{
