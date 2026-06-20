@@ -5,10 +5,11 @@ import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer } from '@/lib/animations'
 
 const NAV_LINKS = [
-  { label: 'HOME',    href: '#home' },
-  { label: 'PRODUCT', href: '#product' },
-  { label: 'ABOUT',   href: '#about' },
-  { label: 'CONTACT', href: '#contact' },
+  { label: 'HOME',      href: '#home' },
+  { label: 'PRODUCT',   href: '#product' },
+  { label: 'ABOUT',     href: '#about' },
+  { label: 'TESTIMONI', href: '#testimoni' },
+  { label: 'CONTACT',   href: '#contact' },
 ]
 
 const BRANDS = [
@@ -157,6 +158,13 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      const target = document.querySelector(link.href)
+                      if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' })
+                      }
+                    }}
                     style={{
                       fontFamily: 'var(--font-bebas), sans-serif',
                       fontSize: '1.15rem', letterSpacing: '0.1em',

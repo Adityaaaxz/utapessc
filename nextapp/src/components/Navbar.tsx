@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Search, ShoppingCart, X, MoreHorizontal } from 'lucide-react'
+import { User, ShoppingCart, X, MoreHorizontal } from 'lucide-react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import { useCart } from '@/lib/cart'
 
@@ -27,6 +27,8 @@ function useIsMobile(breakpoint = 768) {
 
 function useScrollSpy() {
   const [activeSection, setActiveSection] = useState('Home')
+  const isClickScroll = useRef(false)
+  const clickTimeout = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const sectionIds = ['home', 'product', 'about', 'testimoni', 'contact']
@@ -43,7 +45,7 @@ function useScrollSpy() {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting && !isClickScroll.current) {
               setActiveSection(labelMap[id])
             }
           })
@@ -61,15 +63,21 @@ function useScrollSpy() {
     return () => observers.forEach((obs) => obs.disconnect())
   }, [])
 
-  return [activeSection, setActiveSection] as const
+  const setActiveManual = (section: string) => {
+    setActiveSection(section)
+    isClickScroll.current = true
+    if (clickTimeout.current) clearTimeout(clickTimeout.current)
+    clickTimeout.current = setTimeout(() => {
+      isClickScroll.current = false
+    }, 1000)
+  }
+
+  return [activeSection, setActiveManual] as const
 }
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled]       = useState(false)
-  const [searchOpen, setSearchOpen]       = useState(false)
-  const [searchQuery, setSearchQuery]     = useState('')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const searchInputRef = useRef<HTMLInputElement>(null)
   const { scrollY }    = useScroll()
   const isMobile       = useIsMobile()
   const [active, setActive] = useScrollSpy()
@@ -83,19 +91,8 @@ export default function Navbar() {
   })
 
   useEffect(() => {
-    if (searchOpen && searchInputRef.current) searchInputRef.current.focus()
-  }, [searchOpen])
-
-  useEffect(() => {
     if (!isMobile) setMobileMenuOpen(false)
   }, [isMobile])
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSearchOpen(false)
-    const productSection = document.getElementById('product')
-    if (productSection) productSection.scrollIntoView({ behavior: 'smooth' })
-  }
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, label: string) => {
     e.preventDefault()
@@ -216,102 +213,6 @@ export default function Navbar() {
           flexShrink: 0,
         }}>
 
-          {/* Desktop search: icon → expand on click */}
-          {!isMobile && (
-            <AnimatePresence mode="wait">
-              {searchOpen ? (
-                <motion.form
-                  key="open"
-                  onSubmit={handleSearchSubmit}
-                  initial={{ width: 36, opacity: 0 }}
-                  animate={{ width: 240, opacity: 1 }}
-                  exit={{ width: 36, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: [0.22,1,0.36,1] }}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    background: 'rgba(0,0,0,0.06)',
-                    border: '1.5px solid rgba(0,0,0,0.18)',
-                    borderRadius: '999px',
-                    padding: '7px 14px',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <Search size={16} strokeWidth={2.5} style={{ color: '#555', flexShrink: 0 }} />
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    placeholder="Cari produk..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                      marginLeft: '8px',
-                      fontFamily: 'var(--font-inter), sans-serif',
-                      fontSize: '0.85rem',
-                      color: '#000',
-                      width: '100%',
-                      minWidth: 0,
-                    }}
-                  />
-                  <motion.button
-                    type="button"
-                    onClick={() => { setSearchOpen(false); setSearchQuery('') }}
-                    style={{
-                      background: 'none', border: 'none', cursor: 'pointer',
-                      display: 'flex', color: '#555', padding: 0, flexShrink: 0,
-                    }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <X size={15} />
-                  </motion.button>
-                </motion.form>
-              ) : (
-                <motion.button
-                  key="closed"
-                  aria-label="Search"
-                  onClick={() => setSearchOpen(true)}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    color: '#111',
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '6px',
-                    borderRadius: '50%',
-                  }}
-                  whileHover={{ scale: 1.15, backgroundColor: 'rgba(0,0,0,0.06)' }}
-                  whileTap={{ scale: 0.9 }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Search size={21} strokeWidth={2.2} />
-                </motion.button>
-              )}
-            </AnimatePresence>
-          )}
-
-          {/* Mobile: plain search icon */}
-          {isMobile && (
-            <motion.button
-              aria-label="Search"
-              onClick={() => setSearchOpen((v) => !v)}
-              style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                color: '#111', display: 'flex', padding: '6px', borderRadius: '50%',
-              }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Search size={21} strokeWidth={2.2} />
-            </motion.button>
-          )}
-
           {/* Cart with badge */}
           <motion.button
             aria-label="Cart"
@@ -344,6 +245,26 @@ export default function Navbar() {
             )}
           </motion.button>
 
+          {/* User Profile Button */}
+          <motion.button
+            aria-label="User Profile"
+            onClick={() => console.log('User profile clicked')}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#111',
+              display: 'flex',
+              alignItems: 'center',
+              padding: '6px',
+              borderRadius: '50%',
+            }}
+            whileHover={{ scale: 1.15, backgroundColor: 'rgba(0,0,0,0.06)' }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <User size={isMobile ? 21 : 21} strokeWidth={2.2} />
+          </motion.button>
+
           {/* Mobile 3-dot menu */}
           {isMobile && (
             <motion.button
@@ -372,55 +293,7 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* ── Mobile search bar (slides down below navbar) ── */}
-      <AnimatePresence>
-        {isMobile && searchOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -12, scaleY: 0.9 }}
-            animate={{ opacity: 1, y: 0, scaleY: 1 }}
-            exit={{ opacity: 0, y: -12, scaleY: 0.9 }}
-            transition={{ duration: 0.22 }}
-            style={{
-              position: 'fixed',
-              top: '60px',
-              left: '12px',
-              right: '12px',
-              zIndex: 999,
-              background: 'rgba(255,255,255,0.98)',
-              borderRadius: '14px',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.14)',
-              border: '1.5px solid rgba(0,0,0,0.09)',
-              transformOrigin: 'top',
-            }}
-          >
-            <form
-              onSubmit={handleSearchSubmit}
-              style={{ display: 'flex', alignItems: 'center', padding: '12px 16px', gap: '10px' }}
-            >
-              <Search size={18} strokeWidth={2.5} style={{ color: '#555', flexShrink: 0 }} />
-              <input
-                ref={searchInputRef}
-                type="text"
-                placeholder="Cari produk sepatu..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                style={{
-                  background: 'transparent', border: 'none', outline: 'none',
-                  fontFamily: 'var(--font-inter), sans-serif',
-                  fontSize: '0.95rem', color: '#000', width: '100%',
-                }}
-              />
-              <button
-                type="button"
-                onClick={() => { setSearchOpen(false); setSearchQuery('') }}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', color: '#555' }}
-              >
-                <X size={18} />
-              </button>
-            </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* ── Mobile dropdown menu ── */}
       <AnimatePresence>
