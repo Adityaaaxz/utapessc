@@ -48,10 +48,14 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       <div style={{ position: 'relative', width: '100%' }}>
         {/* ══════════════ FRONT (STREETWEAR VIBE BUT WITH INTER FONT) ══════════════ */}
         <motion.div
-          animate={{ rotateY: isFlipped ? 180 : 0 }}
+          animate={{ 
+            rotateY: isFlipped ? 180 : 0,
+            opacity: isFlipped ? 0 : 1 
+          }}
           whileHover={{ y: isFlipped ? 0 : -6, boxShadow: isFlipped ? '4px 4px 0 #000' : `0 32px 64px rgba(0,0,0,0.18), 8px 8px 0 #000` }}
           transition={{
             rotateY: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+            opacity: { duration: 0, delay: 0.2 },
             default: { type: 'spring', stiffness: 280, damping: 22 }
           }}
           style={{
@@ -242,8 +246,14 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         {/* ══════════════ BACK ══════════════ */}
         <motion.div
           initial={false}
-          animate={{ rotateY: isFlipped ? 0 : -180 }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          animate={{ 
+            rotateY: isFlipped ? 0 : -180,
+            opacity: isFlipped ? 1 : 0 
+          }}
+          transition={{ 
+            rotateY: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+            opacity: { duration: 0, delay: 0.2 }
+          }}
           style={{
             position: 'absolute', inset: 0,
             backfaceVisibility: 'hidden',
