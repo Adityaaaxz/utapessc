@@ -50,12 +50,14 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         <motion.div
           animate={{ 
             rotateY: isFlipped ? 180 : 0,
-            opacity: isFlipped ? 0 : 1 
+            opacity: isFlipped ? 0 : 1,
+            visibility: isFlipped ? 'hidden' : 'visible'
           }}
           whileHover={{ y: isFlipped ? 0 : -6, boxShadow: isFlipped ? '4px 4px 0 #000' : `0 32px 64px rgba(0,0,0,0.18), 8px 8px 0 #000` }}
           transition={{
             rotateY: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
             opacity: { duration: 0, delay: 0.2 },
+            visibility: { duration: 0, delay: 0.2 },
             default: { type: 'spring', stiffness: 280, damping: 22 }
           }}
           style={{
@@ -63,7 +65,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             WebkitBackfaceVisibility: 'hidden',
             background: '#fff',
             borderRadius: '16px',
-            overflow: 'hidden',
+            clipPath: 'inset(0 round 16px)',
+            WebkitClipPath: 'inset(0 round 16px)',
             boxShadow: '4px 4px 0 #000',
             border: '2px solid #000',
             position: 'relative',
@@ -81,11 +84,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              overflow: 'hidden',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-              transform: 'translateZ(0)',
-              WebkitTransform: 'translateZ(0)',
+              clipPath: 'inset(0)',
+              WebkitClipPath: 'inset(0)',
             }}
           >
             {/* Massive Watermark */}
@@ -145,10 +145,6 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                 aspectRatio: '4/3', 
                 position: 'relative', 
                 zIndex: 2,
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
-                transform: 'translateZ(0)',
-                WebkitTransform: 'translateZ(0)',
               }}
             >
               <Image
@@ -248,11 +244,13 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           initial={false}
           animate={{ 
             rotateY: isFlipped ? 0 : -180,
-            opacity: isFlipped ? 1 : 0 
+            opacity: isFlipped ? 1 : 0,
+            visibility: isFlipped ? 'visible' : 'hidden'
           }}
           transition={{ 
             rotateY: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
-            opacity: { duration: 0, delay: 0.2 }
+            opacity: { duration: 0, delay: 0.2 },
+            visibility: { duration: 0, delay: 0.2 }
           }}
           style={{
             position: 'absolute', inset: 0,
@@ -265,7 +263,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             boxShadow: `0 12px 32px rgba(255,107,0,0.25)`,
             display: 'flex',
             flexDirection: 'column',
-            overflow: 'hidden',
+            clipPath: 'inset(0 round 16px)',
+            WebkitClipPath: 'inset(0 round 16px)',
           }}
         >
           {/* Back graphic bg layer */}
