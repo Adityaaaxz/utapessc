@@ -77,8 +77,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             WebkitBackfaceVisibility: 'hidden',
             background: '#fff',
             borderRadius: '16px',
-            clipPath: 'inset(0 round 16px)',
-            WebkitClipPath: 'inset(0 round 16px)',
+            overflow: 'hidden',
             boxShadow: '4px 4px 0 #000',
             border: '2px solid #000',
             position: 'relative',
@@ -110,8 +109,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              clipPath: 'inset(0)',
-              WebkitClipPath: 'inset(0)',
+              overflow: 'hidden',
             }}
           >
             {/* Massive Watermark */}
@@ -295,8 +293,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             boxShadow: `0 12px 32px rgba(255,107,0,0.25)`,
             display: 'flex',
             flexDirection: 'column',
-            clipPath: 'inset(0 round 16px)',
-            WebkitClipPath: 'inset(0 round 16px)',
+            overflow: 'hidden',
           }}
         >
           {/* Back graphic bg layer */}
