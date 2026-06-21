@@ -26,6 +26,11 @@ const itemVar: any = {
   show:   { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
+const crownVar: any = {
+  hidden: { y: -800, opacity: 0, rotate: -35, scale: 1.2 },
+  show:   { y: 0, opacity: 1, rotate: 0, scale: 1, transition: { type: 'spring', stiffness: 180, damping: 10, mass: 1.2 } },
+};
+
 export default function Hero({ onShopNow }: HeroProps) {
   return (
     <section
@@ -111,13 +116,17 @@ export default function Hero({ onShopNow }: HeroProps) {
           </span>
         </motion.div>
 
-        {/* Crown + Main logo */}
-        <motion.div variants={itemVar} style={{ position: 'relative', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          {/* Crown / Mahkota */}
+        {/* Crown / Mahkota */}
+        <motion.div
+          initial={{ y: -800, opacity: 0, rotate: -40, scale: 1.5 }}
+          whileInView={{ y: 0, opacity: 1, rotate: 0, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ type: 'spring', stiffness: 120, damping: 10, mass: 1, delay: 0.2 }}
+          style={{ marginBottom: -14, zIndex: 2, position: 'relative' }}
+        >
           <motion.div
-            style={{ marginBottom: -14, zIndex: 2 }}
-            animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
           >
             <Image
               src="/assets/maskot/mahkota.png"
@@ -128,26 +137,27 @@ export default function Hero({ onShopNow }: HeroProps) {
               className="orange-glow"
             />
           </motion.div>
-
-          {/* Big UTAPES heading */}
-          <h1
-            style={{
-              fontFamily: 'var(--font-bebas)',
-              fontSize: 'clamp(72px, 18vw, 180px)',
-              letterSpacing: '0.01em',
-              lineHeight: 0.9,
-              color: '#FFFFFF',
-              textShadow: `
-                3px 3px 0 #FF6B00,
-                6px 6px 0 rgba(255,107,0,0.5),
-                0 0 60px rgba(255,107,0,0.4)
-              `,
-              position: 'relative',
-            }}
-          >
-            UTAPES
-          </h1>
         </motion.div>
+
+        {/* Big UTAPES heading */}
+        <motion.h1
+          variants={itemVar}
+          style={{
+            fontFamily: 'var(--font-bebas)',
+            fontSize: 'clamp(72px, 18vw, 180px)',
+            letterSpacing: '0.01em',
+            lineHeight: 0.9,
+            color: '#FFFFFF',
+            textShadow: `
+              3px 3px 0 #FF6B00,
+              6px 6px 0 rgba(255,107,0,0.5),
+              0 0 60px rgba(255,107,0,0.4)
+            `,
+            position: 'relative',
+          }}
+        >
+          UTAPES
+        </motion.h1>
 
         {/* THRIFT BEST divider */}
         <motion.div

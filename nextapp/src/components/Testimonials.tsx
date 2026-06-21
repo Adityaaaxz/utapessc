@@ -162,11 +162,13 @@ export default function Testimonials() {
           >
             <h2
               style={{
-                fontFamily: 'var(--font-bebas), sans-serif',
+                fontFamily: 'var(--font-inter), sans-serif',
+                fontWeight: 900,
                 fontSize: 'clamp(36px, 7vw, 64px)',
                 color: '#fff',
-                lineHeight: 1,
+                lineHeight: 0.92,
                 margin: 0,
+                letterSpacing: '-0.03em',
               }}
             >
               APA KATA <span style={{ color: '#FF6B00' }}>PELANGGAN?</span>

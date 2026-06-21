@@ -81,7 +81,7 @@ export default function HypeBanner() {
             <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.75rem', letterSpacing: '0.25em', color: '#FF6B00', textTransform: 'uppercase', marginBottom: '8px' }}>
               ★ WHAT OUR CUSTOMERS ARE SAYING ★
             </p>
-            <h2 style={{ fontFamily: 'var(--font-bebas), sans-serif', fontSize: 'clamp(36px, 7vw, 72px)', color: '#fff', lineHeight: 1, margin: '0 0 16px', letterSpacing: '0.02em' }}>
+            <h2 style={{ fontFamily: 'var(--font-inter), sans-serif', fontWeight: 900, fontSize: 'clamp(36px, 7vw, 72px)', color: '#fff', lineHeight: 0.92, margin: '0 0 16px', letterSpacing: '-0.03em' }}>
               REAL STEPS,<br /><span style={{ color: '#FF6B00' }}>REAL HYPE.</span>
             </h2>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>

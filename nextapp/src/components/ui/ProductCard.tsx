@@ -125,23 +125,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               </div>
             )}
 
-            {/* Type badge sticker */}
-            <div style={{
-              position: 'absolute', bottom: 12, right: 12, zIndex: 5,
-              background: ts.bg,
-              border: `1.5px solid ${ts.border}`,
-              color: ts.color,
-              fontFamily: 'var(--font-inter), sans-serif',
-              fontWeight: 800,
-              fontSize: '0.65rem', letterSpacing: '0.1em',
-              padding: '4px 10px',
-              borderRadius: '4px',
-              display: 'flex', alignItems: 'center', gap: '4px',
-              boxShadow: '2px 2px 0 rgba(0,0,0,1)',
-            }}>
-              <Tag size={10} />
-              {product.type}
-            </div>
+
 
             {/* Shoe image */}
             <motion.div
@@ -211,12 +195,11 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                 <p style={{
                   fontFamily: 'var(--font-inter), sans-serif',
                   fontWeight: 900,
-                  fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+                  fontSize: 'clamp(1.2rem, 2vw, 1.4rem)',
                   color: ORANGE,
                   margin: 0,
-                  letterSpacing: '-0.02em',
+                  letterSpacing: '-0.03em',
                   lineHeight: 1,
-                  textShadow: '1px 1px 0 #000',
                 }}>
                   Rp {product.price}
                 </p>
@@ -224,18 +207,19 @@ export default function ProductCard({ product, index }: ProductCardProps) {
 
               <div style={{
                 display: 'flex', alignItems: 'center', gap: '6px',
-                background: '#000',
-                color: '#FF6B00',
+                background: '#111',
+                color: '#fff',
                 padding: '10px 18px',
-                border: '1.5px solid #000',
-                boxShadow: '2px 2px 0 #FF6B00',
+                borderRadius: '8px',
                 fontFamily: 'var(--font-inter), sans-serif',
-                fontWeight: 800,
+                fontWeight: 700,
                 fontSize: '0.75rem',
-                letterSpacing: '0.08em',
+                letterSpacing: '0.06em',
                 cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
               }}>
-                DETAIL <ArrowRight size={14} />
+                DETAIL <ArrowRight size={14} color={ORANGE} />
               </div>
             </div>
           </div>
@@ -251,7 +235,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             background: '#111',
             borderRadius: '16px',
             border: `2px solid #000`,
-            boxShadow: `4px 4px 0 ${ORANGE}`,
+            boxShadow: `0 12px 32px rgba(255,107,0,0.25)`,
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
@@ -369,13 +353,13 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                     width: '100%', padding: '14px',
                     background: '#000',
                     border: '1.5px solid #34d399',
-                    boxShadow: '3px 3px 0 #34d399',
+                    boxShadow: '0 4px 14px rgba(52,211,153,0.2)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
                     color: '#34d399',
                     fontFamily: 'var(--font-inter), sans-serif',
                     fontWeight: 800,
                     fontSize: '0.9rem', letterSpacing: '0.04em',
-                    borderRadius: '6px',
+                    borderRadius: '8px',
                   }}
                 >
                   <CheckCircle size={18} />
@@ -393,15 +377,15 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                     width: '100%',
                     background: ORANGE,
                     color: '#000',
-                    border: '2px solid #000',
+                    border: 'none',
                     padding: '14px',
                     cursor: 'pointer',
                     fontFamily: 'var(--font-inter), sans-serif',
                     fontWeight: 900,
                     fontSize: '0.9rem', letterSpacing: '0.06em',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                    boxShadow: `4px 4px 0 #000`,
-                    borderRadius: '6px',
+                    boxShadow: `0 4px 14px rgba(255,107,0,0.3)`,
+                    borderRadius: '8px',
                   }}
                 >
                   <ShoppingCart size={18} />

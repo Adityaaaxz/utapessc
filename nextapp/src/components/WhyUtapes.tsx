@@ -56,7 +56,6 @@ export default function WhyUtapes() {
           letterSpacing: '0.06em',
         }}
       >
-        UTAPES
       </div>
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
@@ -70,11 +69,13 @@ export default function WhyUtapes() {
         >
           <h2
             style={{
-              fontFamily: 'var(--font-bebas), sans-serif',
-              fontSize: 'clamp(40px, 8vw, 80px)',
+              fontFamily: 'var(--font-inter), sans-serif',
+              fontWeight: 900,
+              fontSize: 'clamp(38px, 8vw, 80px)',
               color: '#000',
-              lineHeight: 1,
+              lineHeight: 0.92,
               margin: 0,
+              letterSpacing: '-0.03em',
             }}
           >
             KENAPA <span style={{ color: '#FF6B00' }}>UTAPES?</span>

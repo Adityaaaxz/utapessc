@@ -64,18 +64,25 @@ export default function HeroSection() {
 
             {/* Crown — floats above logo */}
             <motion.div
-              animate={{ y: [-4, 10, -4] }}
-              transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+              initial={{ y: -300, opacity: 0, rotate: -20 }}
+              whileInView={{ y: 0, opacity: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.8, ease: "easeOut" }}
               style={{ zIndex: 0, pointerEvents: 'none' }}
             >
-              <Image
-                src="/assets/landing-asset/hero-asset/mahkota.png"
-                alt="Crown"
-                width={210}
-                height={150}
-                loading="eager"
-                style={{ objectFit: 'contain', width: 'clamp(220px, 22vw, 260px)', height: 'auto', display: 'block' }}
-              />
+              <motion.div
+                animate={{ y: [-4, 10, -4] }}
+                transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut', delay: 1.8 }}
+              >
+                <Image
+                  src="/assets/landing-asset/hero-asset/mahkota.png"
+                  alt="Crown"
+                  width={210}
+                  height={150}
+                  loading="eager"
+                  style={{ objectFit: 'contain', width: 'clamp(220px, 22vw, 260px)', height: 'auto', display: 'block' }}
+                />
+              </motion.div>
             </motion.div>
 
             {/* UTAPES Logo — pulled up to be close to crown */}
@@ -136,6 +143,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.65 }}
+          className="hero-bottom-row"
           style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -146,7 +154,7 @@ export default function HeroSection() {
           }}
         >
           {/* LEFT: Badge + Brand logos */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          <div className="hero-left-col" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             {/* THRIFT SHOES STORE badge */}
             <div
               style={{
@@ -169,6 +177,7 @@ export default function HeroSection() {
 
             {/* Brand logos */}
             <div
+              className="hero-brand-logos"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -198,9 +207,13 @@ export default function HeroSection() {
           </div>
 
           {/* RIGHT: CTA Buttons */}
-          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div className="hero-right-col" style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
             <a
               href="#product"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('product')?.scrollIntoView({ behavior: 'smooth' })
+              }}
               style={{
                 background: '#000',
                 color: '#fff',
@@ -231,6 +244,10 @@ export default function HeroSection() {
 
             <a
               href="#product"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('product')?.scrollIntoView({ behavior: 'smooth' })
+              }}
               style={{
                 background: '#fff',
                 color: '#000',

@@ -13,6 +13,7 @@ interface CartCtx {
   totalPrice: number
   addItem: (product: Product) => void
   removeItem: (id: string) => void
+  decreaseQuantity: (id: string) => void
   clearCart: () => void
   isOpen: boolean
   openCart: () => void
@@ -38,6 +39,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prev) => prev.filter((i) => i.id !== id))
   }, [])
 
+  const decreaseQuantity = useCallback((id: string) => {
+    setItems((prev) => prev.map((i) => i.id === id ? { ...i, quantity: Math.max(1, i.quantity - 1) } : i))
+  }, [])
+
   const clearCart = useCallback(() => setItems([]), [])
 
   const totalCount = items.reduce((s, i) => s + i.quantity, 0)
@@ -46,7 +51,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   return (
     <CartContext.Provider value={{
       items, totalCount, totalPrice,
-      addItem, removeItem, clearCart,
+      addItem, removeItem, decreaseQuantity, clearCart,
       isOpen, openCart: () => setIsOpen(true), closeCart: () => setIsOpen(false),
     }}>
       {children}

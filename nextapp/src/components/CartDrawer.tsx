@@ -12,7 +12,7 @@ function formatPrice(n: number) {
 }
 
 export default function CartDrawer() {
-  const { items, totalCount, totalPrice, removeItem, addItem, closeCart, isOpen, clearCart } = useCart()
+  const { items, totalCount, totalPrice, removeItem, addItem, decreaseQuantity, closeCart, isOpen, clearCart } = useCart()
 
   return (
     <AnimatePresence>
@@ -62,8 +62,9 @@ export default function CartDrawer() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <ShoppingBag size={20} color="#FF6B00" />
                 <span style={{
-                  fontFamily: 'var(--font-bebas), sans-serif',
-                  fontSize: '1.4rem', letterSpacing: '0.08em', color: '#fff',
+                  fontFamily: 'var(--font-inter), sans-serif',
+                  fontWeight: 900,
+                  fontSize: '1.2rem', letterSpacing: '0.04em', color: '#fff',
                 }}>
                   CART ({totalCount})
                 </span>
@@ -96,6 +97,7 @@ export default function CartDrawer() {
                     <ShoppingCart size={52} strokeWidth={1.2} />
                     <p style={{
                       fontFamily: 'var(--font-inter), sans-serif',
+                      fontWeight: 500,
                       fontSize: '0.9rem', letterSpacing: '0.05em', textAlign: 'center',
                     }}>
                       Cart kamu kosong bro!<br />
@@ -129,16 +131,18 @@ export default function CartDrawer() {
                       {/* Info */}
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <p style={{
-                          fontFamily: 'var(--font-bebas), sans-serif',
-                          fontSize: '1rem', letterSpacing: '0.06em', color: '#fff', margin: 0,
+                          fontFamily: 'var(--font-inter), sans-serif',
+                          fontWeight: 800,
+                          fontSize: '0.95rem', letterSpacing: '0.02em', color: '#fff', margin: 0,
                         }}>{item.brand}</p>
                         <p style={{
                           fontSize: '0.72rem', color: 'rgba(255,255,255,0.45)',
                           margin: '2px 0 0', fontFamily: 'var(--font-inter), sans-serif',
                         }}>{item.name}</p>
                         <p style={{
-                          fontFamily: 'var(--font-bebas), sans-serif',
-                          fontSize: '0.95rem', color: '#FF6B00', margin: '4px 0 0',
+                          fontFamily: 'var(--font-inter), sans-serif',
+                          fontWeight: 900,
+                          fontSize: '0.9rem', color: '#FF6B00', margin: '4px 0 0',
                         }}>{item.price}</p>
                       </div>
 
@@ -147,7 +151,7 @@ export default function CartDrawer() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <motion.button
                             whileTap={{ scale: 0.85 }}
-                            onClick={() => item.quantity > 1 ? addItem(item) : removeItem(item.id)}
+                            onClick={() => item.quantity > 1 ? decreaseQuantity(item.id) : removeItem(item.id)}
                             style={{
                               background: 'rgba(255,255,255,0.08)', border: 'none', cursor: 'pointer',
                               width: '24px', height: '24px', borderRadius: '50%',
@@ -157,8 +161,9 @@ export default function CartDrawer() {
                             <Minus size={11} />
                           </motion.button>
                           <span style={{
-                            fontFamily: 'var(--font-bebas), sans-serif',
-                            color: '#fff', fontSize: '1rem', minWidth: '16px', textAlign: 'center',
+                            fontFamily: 'var(--font-inter), sans-serif',
+                            fontWeight: 700,
+                            color: '#fff', fontSize: '0.9rem', minWidth: '16px', textAlign: 'center',
                           }}>{item.quantity}</span>
                           <motion.button
                             whileTap={{ scale: 0.85 }}
@@ -204,8 +209,9 @@ export default function CartDrawer() {
                     color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem',
                   }}>Total</span>
                   <span style={{
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: '1.5rem', color: '#FF6B00', letterSpacing: '0.05em',
+                    fontFamily: 'var(--font-inter), sans-serif',
+                    fontWeight: 900,
+                    fontSize: '1.2rem', color: '#FF6B00', letterSpacing: '0.02em',
                   }}>
                     Rp {formatPrice(totalPrice)}
                   </span>
@@ -218,8 +224,8 @@ export default function CartDrawer() {
                     background: 'linear-gradient(135deg, #FF6B00, #e55f00)',
                     color: '#000', border: 'none', borderRadius: '12px',
                     padding: '15px', cursor: 'pointer', width: '100%',
-                    fontFamily: 'var(--font-bebas), sans-serif',
-                    fontSize: '1.1rem', letterSpacing: '0.1em', fontWeight: 900,
+                    fontFamily: 'var(--font-inter), sans-serif',
+                    fontSize: '1rem', letterSpacing: '0.06em', fontWeight: 900,
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
                     boxShadow: '0 4px 24px rgba(255,107,0,0.35)',
                   }}

@@ -153,11 +153,11 @@ export default function ProductSection() {
               <Image
                 src="/assets/maskot/Tengkorak.png"
                 alt="Skull"
-                width={80}
-                height={80}
+                width={130}
+                height={130}
                 style={{
                   objectFit: 'contain',
-                  filter: 'drop-shadow(0 0 12px rgba(255,107,0,0.45))',
+                  filter: 'drop-shadow(0 0 16px rgba(255,107,0,0.5))',
                 }}
               />
             </motion.div>

@@ -15,9 +15,9 @@ const InstagramIcon = ({ size = 24 }) => (
 const STORE_INFO = [
   { icon: <MapPin size={16} />,   label: 'ALAMAT',    value: 'Cianjur, Cibinong hilir, Jawa Barat' },
   { icon: <Clock size={16} />,    label: 'OPEN STORE',  value: '09.00 – 21.00 WIB' },
-  { icon: <Phone size={16} />,    label: 'TELEPON',   value: '+62 812-3456-7890' },
-  { icon: <Mail size={16} />,     label: 'EMAIL',     value: 'hello@utapes.sc' },
-  { icon: <InstagramIcon size={16} />,label: 'INSTAGRAM', value: '@utapes.sc' },
+  { icon: <Phone size={16} />,    label: 'TELEPON',   value: '+62 878-3057-0469' },
+  { icon: <Mail size={16} />,     label: 'EMAIL',     value: 'hello@utapes_catalog' },
+  { icon: <InstagramIcon size={16} />,label: 'INSTAGRAM', value: '@utapes_catalog' },
 ]
 
 export default function LokasiToko() {

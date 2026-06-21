@@ -56,6 +56,22 @@ export default function SejarahSection() {
             pointerEvents: 'none',
           }}>UTAPESSC</div>
 
+          {/* Staples Effect */}
+          <div style={{
+            position: 'absolute', top: '24px', left: '24px',
+            width: '32px', height: '5px',
+            background: 'linear-gradient(90deg, #999, #ddd, #999)',
+            boxShadow: '1px 2px 3px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.5)',
+            transform: 'rotate(-25deg)', borderRadius: '1px', zIndex: 10
+          }} />
+          <div style={{
+            position: 'absolute', bottom: '30px', right: '30px',
+            width: '32px', height: '5px',
+            background: 'linear-gradient(90deg, #999, #ddd, #999)',
+            boxShadow: '1px 2px 3px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.5)',
+            transform: 'rotate(15deg)', borderRadius: '1px', zIndex: 10
+          }} />
+
           {/* Content — un-rotate so text is straight */}
           <div style={{ transform: 'rotate(1.5deg)' }}>
             <motion.div

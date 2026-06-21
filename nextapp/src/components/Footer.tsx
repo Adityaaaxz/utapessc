@@ -30,9 +30,9 @@ const BRANDS = [
 ]
 
 const SOCIAL = [
-  { label: 'IG',  href: 'https://instagram.com/utapessc', icon: <InstagramIcon size={18} /> },
-  { label: 'TT',  href: '#', icon: <Music2 size={18} /> },
-  { label: 'WA',  href: '#', icon: <MessageCircle size={18} /> },
+  { label: 'IG',  href: 'https://www.instagram.com/utapes_catalog?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', icon: <InstagramIcon size={18} /> },
+  { label: 'TT',  href: 'https://www.tiktok.com/@utapes.sc?is_from_webapp=1&sender_device=pc', icon: <Music2 size={18} /> },
+  { label: 'WA',  href: 'https://wa.me/+6287830570469', icon: <MessageCircle size={18} /> },
 ]
 
 export default function Footer() {
@@ -239,9 +239,9 @@ export default function Footer() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {[
                 { label: 'ALAMAT',    value: 'Cianjur, Cibinong hilir, Jawa Barat' },
-                { label: 'TELEPON',   value: '+62 812-3456-7890' },
-                { label: 'EMAIL',     value: 'hello@utapes.sc' },
-                { label: 'INSTAGRAM', value: '@utapes.sc' },
+                { label: 'TELEPON',   value: '+62 878-3057-0469' },
+                { label: 'EMAIL',     value: 'hello@utapes_catalog' },
+                { label: 'INSTAGRAM', value: '@utapes_catalog' },
               ].map((c) => (
                 <div key={c.label}>
                   <p style={{
@@ -283,7 +283,7 @@ export default function Footer() {
             fontSize: '0.7rem', letterSpacing: '0.05em',
             color: '#444', margin: 0,
           }}>
-            © 2026 UTAPES.SC — ALL RIGHTS RESERVED
+            © 2026 UTAPES — ALL RIGHTS RESERVED
           </p>
           <p style={{
             fontFamily: 'var(--font-inter), sans-serif',
