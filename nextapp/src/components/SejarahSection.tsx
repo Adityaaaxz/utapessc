@@ -90,7 +90,7 @@ export default function SejarahSection() {
               </motion.h2>
 
               <motion.p variants={fadeUp} style={{ fontFamily: 'var(--font-inter)', fontSize: 'clamp(0.9rem, 1.5vw, 1rem)', color: '#aaa', lineHeight: 1.8, maxWidth: '700px', marginBottom: '16px' }}>
-                UTAPES lahir dari kecintaan terhadap sneaker culture dan streetwear. Dimulai sebagai toko kecil di pinggiran kota, kami tumbuh menjadi destinasi utama bagi para pecinta sepatu thrift berkualitas. Setiap pasang sepatu yang kami jual melewati seleksi ketat — hanya yang terbaik yang sampai ke tangan kalian.
+                UTAPES lahir dari kecintaan terhadap sneaker culture dan streetwear. kami tumbuh menjadi destinasi utama bagi para pecinta sepatu thrift berkualitas. Setiap pasang sepatu yang kami jual melewati seleksi ketat — hanya yang terbaik yang sampai ke tangan kalian.
               </motion.p>
 
               <motion.p variants={fadeUp} style={{ fontFamily: 'var(--font-inter)', fontSize: 'clamp(0.9rem, 1.5vw, 1rem)', color: '#888', lineHeight: 1.8, maxWidth: '700px' }}>
