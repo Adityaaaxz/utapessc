@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ShoppingCart, ArrowRight, CheckCircle, Tag, RotateCcw } from 'lucide-react'
@@ -25,6 +25,7 @@ function typeStyle(type: string) {
 
 export default function ProductCard({ product, index }: ProductCardProps) {
   const [isFlipped, setIsFlipped] = useState(false)
+  const [hideFrontContent, setHideFrontContent] = useState(false)
   const [added, setAdded]         = useState(false)
   const { addItem }               = useCart()
   const ts                        = typeStyle(product.type)
@@ -35,6 +36,15 @@ export default function ProductCard({ product, index }: ProductCardProps) {
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)
   }
+
+  useEffect(() => {
+    if (isFlipped) {
+      const t = setTimeout(() => setHideFrontContent(true), 150)
+      return () => clearTimeout(t)
+    } else {
+      setHideFrontContent(false)
+    }
+  }, [isFlipped])
 
   return (
     <motion.div
@@ -74,10 +84,21 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           }}
         >
           {/* ── Image area ── */}
-          <div
-            style={{
-              position: 'relative',
-              background: '#f4f4f4',
+          {hideFrontContent ? (
+            <div
+              style={{
+                position: 'relative',
+                background: '#f4f4f4',
+                borderBottom: '2px solid #000',
+                padding: 'clamp(32px, 5vw, 48px) clamp(24px, 4vw, 40px) clamp(24px, 4vw, 36px)',
+                minHeight: 'clamp(200px, 28vw, 270px)',
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                position: 'relative',
+                background: '#f4f4f4',
               borderBottom: '2px solid #000',
               padding: 'clamp(32px, 5vw, 48px) clamp(24px, 4vw, 40px) clamp(24px, 4vw, 36px)',
               minHeight: 'clamp(200px, 28vw, 270px)',
@@ -159,6 +180,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               />
             </motion.div>
           </div>
+          )}
 
           {/* ── Card body ── */}
           <div style={{ padding: '20px 22px 22px', background: '#fff' }}>
