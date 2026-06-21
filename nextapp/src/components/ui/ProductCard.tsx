@@ -45,16 +45,15 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       style={{ perspective: '1400px', cursor: 'pointer' }}
       onClick={() => setIsFlipped((p) => !p)}
     >
-      <motion.div
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        style={{ position: 'relative', width: '100%', transformStyle: 'preserve-3d' }}
-      >
-
+      <div style={{ position: 'relative', width: '100%' }}>
         {/* ══════════════ FRONT (STREETWEAR VIBE BUT WITH INTER FONT) ══════════════ */}
         <motion.div
-          whileHover={{ y: -6, boxShadow: `0 32px 64px rgba(0,0,0,0.18), 8px 8px 0 #000` }}
-          transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+          animate={{ rotateY: isFlipped ? 180 : 0 }}
+          whileHover={{ y: isFlipped ? 0 : -6, boxShadow: isFlipped ? '4px 4px 0 #000' : `0 32px 64px rgba(0,0,0,0.18), 8px 8px 0 #000` }}
+          transition={{
+            rotateY: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+            default: { type: 'spring', stiffness: 280, damping: 22 }
+          }}
           style={{
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
@@ -63,8 +62,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             overflow: 'hidden',
             boxShadow: '4px 4px 0 #000',
             border: '2px solid #000',
-            transform: 'translateZ(0)',
-            WebkitTransform: 'translateZ(0)',
+            position: 'relative',
+            zIndex: isFlipped ? 0 : 1,
           }}
         >
           {/* ── Image area ── */}
@@ -241,12 +240,15 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         </motion.div>
 
         {/* ══════════════ BACK ══════════════ */}
-        <div
+        <motion.div
+          initial={false}
+          animate={{ rotateY: isFlipped ? 0 : -180 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           style={{
             position: 'absolute', inset: 0,
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
-            transform: 'rotateY(180deg)',
+            zIndex: isFlipped ? 1 : 0,
             background: '#111',
             borderRadius: '16px',
             border: `2px solid #000`,
@@ -421,8 +423,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               KLIK UNTUK KEMBALI
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </motion.div>
   )
 }
