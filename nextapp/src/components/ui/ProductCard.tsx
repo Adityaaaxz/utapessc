@@ -63,6 +63,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             overflow: 'hidden',
             boxShadow: '4px 4px 0 #000',
             border: '2px solid #000',
+            transform: 'translateZ(0)',
+            WebkitTransform: 'translateZ(0)',
           }}
         >
           {/* ── Image area ── */}
@@ -77,6 +79,10 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               alignItems: 'center',
               justifyContent: 'center',
               overflow: 'hidden',
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              transform: 'translateZ(0)',
+              WebkitTransform: 'translateZ(0)',
             }}
           >
             {/* Massive Watermark */}
@@ -131,7 +137,16 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             <motion.div
               whileHover={{ scale: 1.1, rotate: -4, y: -4 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              style={{ width: '100%', aspectRatio: '4/3', position: 'relative', zIndex: 2 }}
+              style={{ 
+                width: '100%', 
+                aspectRatio: '4/3', 
+                position: 'relative', 
+                zIndex: 2,
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                transform: 'translateZ(0)',
+                WebkitTransform: 'translateZ(0)',
+              }}
             >
               <Image
                 src={product.image}
