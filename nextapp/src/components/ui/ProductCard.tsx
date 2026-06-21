@@ -39,9 +39,11 @@ export default function ProductCard({ product, index }: ProductCardProps) {
 
   useEffect(() => {
     if (isFlipped) {
-      const t = setTimeout(() => setHideFrontContent(true), 150)
+      // Delay unmount until 250ms (when card is completely turned away)
+      const t = setTimeout(() => setHideFrontContent(true), 250)
       return () => clearTimeout(t)
     } else {
+      // Instantly remount when flipping back
       setHideFrontContent(false)
     }
   }, [isFlipped])
@@ -93,7 +95,10 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                 padding: 'clamp(32px, 5vw, 48px) clamp(24px, 4vw, 40px) clamp(24px, 4vw, 36px)',
                 minHeight: 'clamp(200px, 28vw, 270px)',
               }}
-            />
+            >
+              {/* Dummy element to maintain exact height of the image and prevent card from collapsing */}
+              <div style={{ width: '100%', aspectRatio: '4/3' }} />
+            </div>
           ) : (
             <div
               style={{
@@ -159,8 +164,13 @@ export default function ProductCard({ product, index }: ProductCardProps) {
 
             {/* Shoe image */}
             <motion.div
+              initial={{ opacity: 1 }}
+              animate={{ opacity: isFlipped ? 0 : 1 }}
               whileHover={{ scale: 1.1, rotate: -4, y: -4 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              transition={{ 
+                opacity: { duration: 0.2 },
+                default: { type: 'spring', stiffness: 300, damping: 20 }
+              }}
               style={{ 
                 width: '100%', 
                 aspectRatio: '4/3', 
